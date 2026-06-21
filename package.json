@@ -1,0 +1,42 @@
+{
+  "name": "Paoji Design Kit",
+  "version": "0.7.0",
+  "primaryLanguage": "zh-CN",
+  "supportedLanguages": [
+    "zh-CN",
+    "en-US"
+  ],
+  "license": "MIT",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "package.json",
+    ".github/workflows/deploy.yml",
+    "docs/index.html",
+    "docs/paoji_landing.html",
+    "docs/paoji_wiki.html",
+    "docs/protocol/01_protocol_overview.md",
+    "docs/protocol/02_ys_token.md",
+    "docs/protocol/03_pjd_document.md",
+    "docs/protocol/04_pjp_pack.md",
+    "docs/components/05_component_ecosystem.md",
+    "docs/components/06_designer_guide.md",
+    "docs/components/13_component_schema.md",
+    "docs/components/15_designer_checklist.md",
+    "docs/schemas/11_payload_schema.md",
+    "docs/schemas/12_renderer_resolver.md",
+    "docs/registry/07_registry_security.md",
+    "docs/registry/14_governance_registry.md",
+    "docs/examples/08_examples.md",
+    "docs/examples/09_i18n_localization.md",
+    "docs/reference/16_implementation_roadmap.md",
+    "docs/reference/17_api_reference.md",
+    "docs/reference/18_testing_compatibility.md",
+    "docs/meta/10_license_mit.md",
+    "docs/meta/19_glossary.md",
+    "docs/meta/20_faq.md",
+    "docs/meta/21_contribution_guide.md",
+    "locales/en-US.json",
+    "locales/zh-CN.json"
+  ]
+}

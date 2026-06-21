@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Paoji Docs</title>
+<style>
+:root{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  color:#161616;
+  background:#f7f5ef;
+}
+body{margin:0;background:radial-gradient(circle at 15% 0,rgba(255,79,154,.16),transparent 28%),radial-gradient(circle at 85% 8%,rgba(111,92,255,.14),transparent 28%),#f7f5ef}
+main{width:min(1040px,calc(100vw - 36px));margin:0 auto;padding:48px 0 80px}
+h1{font-size:clamp(44px,9vw,108px);letter-spacing:-.08em;line-height:.86;margin:0 0 18px}
+.lead{color:#756f63;line-height:1.75;max-width:680px;margin:0 0 36px}
+.top-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.top-actions a{padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:800;font-size:14px;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.55);color:#161616}
+.top-actions a.primary{background:#161616;color:#fff;border-color:#161616}
+h2{font-size:22px;letter-spacing:-.03em;margin:40px 0 14px;display:flex;align-items:center;gap:10px}
+h2 .tag{font-size:11px;font-weight:700;color:#756f63;padding:3px 10px;border:1px solid rgba(0,0,0,.15);border-radius:999px;letter-spacing:.04em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+a.card{display:block;padding:18px 20px;border:1px solid rgba(0,0,0,.12);border-radius:24px;background:rgba(255,255,255,.55);text-decoration:none;color:#161616;font-weight:800;transition:transform .15s ease,border-color .15s ease}
+a.card:hover{transform:translateY(-2px);border-color:rgba(0,0,0,.3)}
+a.card span{display:block;color:#756f63;font-weight:500;margin-top:6px;line-height:1.5;font-size:14px}
+footer{margin-top:60px;padding-top:24px;border-top:1px solid rgba(0,0,0,.1);color:#756f63;font-size:13px;line-height:1.6}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<h1>Paoji Docs</h1>
+<p class="lead">主语言：中文。协议采用 MIT。以下文档按主题分组，用于协议设计、组件设计、开发实现和生态治理。</p>
+
+<div class="top-actions">
+  <a class="primary" href="paoji_landing.html">官网原型</a>
+  <a href="paoji_wiki.html">Wiki 页面</a>
+  <a href="../README.md">项目 README</a>
+</div>
+
+<h2>协议基础 <span class="tag">protocol</span></h2>
+<div class="grid">
+  <a class="card" href="protocol/01_protocol_overview.md">01_protocol_overview.md<span>协议总览</span></a>
+  <a class="card" href="protocol/02_ys_token.md">02_ys_token.md<span>YS Token 结构</span></a>
+  <a class="card" href="protocol/03_pjd_document.md">03_pjd_document.md<span>PJD 文档格式</span></a>
+  <a class="card" href="protocol/04_pjp_pack.md">04_pjp_pack.md<span>PJP 组件包</span></a>
+</div>
+
+<h2>组件 <span class="tag">components</span></h2>
+<div class="grid">
+  <a class="card" href="components/05_component_ecosystem.md">05_component_ecosystem.md<span>组件生态</span></a>
+  <a class="card" href="components/06_designer_guide.md">06_designer_guide.md<span>设计师指南</span></a>
+  <a class="card" href="components/13_component_schema.md">13_component_schema.md<span>组件 Schema</span></a>
+  <a class="card" href="components/15_designer_checklist.md">15_designer_checklist.md<span>设计检查清单</span></a>
+</div>
+
+<h2>数据结构与渲染 <span class="tag">schemas</span></h2>
+<div class="grid">
+  <a class="card" href="schemas/11_payload_schema.md">11_payload_schema.md<span>Payload Schema</span></a>
+  <a class="card" href="schemas/12_renderer_resolver.md">12_renderer_resolver.md<span>Resolver 与 Renderer</span></a>
+</div>
+
+<h2>注册表与治理 <span class="tag">registry</span></h2>
+<div class="grid">
+  <a class="card" href="registry/07_registry_security.md">07_registry_security.md<span>Registry 与安全</span></a>
+  <a class="card" href="registry/14_governance_registry.md">14_governance_registry.md<span>生态治理</span></a>
+</div>
+
+<h2>示例与本地化 <span class="tag">examples</span></h2>
+<div class="grid">
+  <a class="card" href="examples/08_examples.md">08_examples.md<span>示例</span></a>
+  <a class="card" href="examples/09_i18n_localization.md">09_i18n_localization.md<span>多语言</span></a>
+</div>
+
+<h2>参考 <span class="tag">reference</span></h2>
+<div class="grid">
+  <a class="card" href="reference/16_implementation_roadmap.md">16_implementation_roadmap.md<span>路线图</span></a>
+  <a class="card" href="reference/17_api_reference.md">17_api_reference.md<span>API 草案</span></a>
+  <a class="card" href="reference/18_testing_compatibility.md">18_testing_compatibility.md<span>测试兼容</span></a>
+</div>
+
+<h2>元信息 <span class="tag">meta</span></h2>
+<div class="grid">
+  <a class="card" href="meta/10_license_mit.md">10_license_mit.md<span>MIT 授权说明</span></a>
+  <a class="card" href="meta/19_glossary.md">19_glossary.md<span>术语表</span></a>
+  <a class="card" href="meta/20_faq.md">20_faq.md<span>FAQ</span></a>
+  <a class="card" href="meta/21_contribution_guide.md">21_contribution_guide.md<span>贡献指南</span></a>
+</div>
+
+<footer>
+  Paoji v0.7 · MIT License · 主语言 zh-CN · 辅助语言 en-US<br/>
+  GitHub Pages 部署目录：<code>docs/</code>
+</footer>
+</main>
+</body>
+</html>
