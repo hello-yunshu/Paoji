@@ -1,0 +1,45 @@
+{
+  "format": "PaojiComponentCatalog",
+  "pack": "paoji.core",
+  "version": "0.1.0",
+  "viewBox": "0 0 1024 1024",
+  "anchors": {
+    "leftEye": { "x": 400, "y": 455 },
+    "rightEye": { "x": 624, "y": 455 },
+    "mouth": { "x": 512, "y": 615 },
+    "leftCheek": { "x": 350, "y": 560 },
+    "rightCheek": { "x": 674, "y": 560 },
+    "deco": { "x": 740, "y": 290 }
+  },
+  "params": {
+    "baseColor": { "type": "color", "default": "#FFD86B" },
+    "inkColor": { "type": "color", "default": "#2C2730" },
+    "accentColor": { "type": "color", "default": "#FF6378" }
+  },
+  "components": [
+    { "id": "paoji.core.base.round", "type": "base", "path": "components/base.round.svg", "name": { "zh-CN": "圆脸", "en-US": "Round" }, "fallback": { "strategy": "visualHint", "visualHint": "🙂" } },
+    { "id": "paoji.core.base.soft-square", "type": "base", "path": "components/base.soft-square.svg", "name": { "zh-CN": "柔方脸", "en-US": "Soft Square" }, "fallback": { "component": "paoji.core.base.round", "strategy": "same-slot" } },
+    { "id": "paoji.core.base.cloud", "type": "base", "path": "components/base.cloud.svg", "name": { "zh-CN": "云朵", "en-US": "Cloud" }, "fallback": { "component": "paoji.core.base.round", "strategy": "same-slot" } },
+    { "id": "paoji.core.eye.dot", "type": "eye", "path": "components/eye.dot.svg", "name": { "zh-CN": "圆点眼", "en-US": "Dot Eyes" }, "fallback": { "strategy": "visualHint", "visualHint": "🙂" } },
+    { "id": "paoji.core.eye.happy", "type": "eye", "path": "components/eye.happy.svg", "name": { "zh-CN": "开心眼", "en-US": "Happy Eyes" }, "fallback": { "component": "paoji.core.eye.dot", "strategy": "same-slot" } },
+    { "id": "paoji.core.eye.sleepy", "type": "eye", "path": "components/eye.sleepy.svg", "name": { "zh-CN": "困倦眼", "en-US": "Sleepy Eyes" }, "fallback": { "component": "paoji.core.eye.dot", "strategy": "same-slot" } },
+    { "id": "paoji.core.eye.pleading", "type": "eye", "path": "components/eye.pleading.svg", "name": { "zh-CN": "恳求眼", "en-US": "Pleading Eyes" }, "fallback": { "component": "paoji.core.eye.dot", "strategy": "same-slot" } },
+    { "id": "paoji.core.eye.surprised", "type": "eye", "path": "components/eye.surprised.svg", "name": { "zh-CN": "惊讶眼", "en-US": "Surprised Eyes" }, "fallback": { "component": "paoji.core.eye.dot", "strategy": "same-slot" } },
+    { "id": "paoji.core.eye.wink", "type": "eye", "path": "components/eye.wink.svg", "name": { "zh-CN": "眨眼", "en-US": "Wink" }, "fallback": { "component": "paoji.core.eye.happy", "strategy": "same-slot" } },
+    { "id": "paoji.core.brow.soft", "type": "brow", "path": "components/brow.soft.svg", "name": { "zh-CN": "柔和眉", "en-US": "Soft Brows" }, "fallback": { "strategy": "omit" } },
+    { "id": "paoji.core.brow.worried", "type": "brow", "path": "components/brow.worried.svg", "name": { "zh-CN": "担忧眉", "en-US": "Worried Brows" }, "fallback": { "component": "paoji.core.brow.soft", "strategy": "same-slot" } },
+    { "id": "paoji.core.brow.angry", "type": "brow", "path": "components/brow.angry.svg", "name": { "zh-CN": "生气眉", "en-US": "Angry Brows" }, "fallback": { "component": "paoji.core.brow.soft", "strategy": "same-slot" } },
+    { "id": "paoji.core.mouth.smile", "type": "mouth", "path": "components/mouth.smile.svg", "name": { "zh-CN": "微笑", "en-US": "Smile" }, "fallback": { "strategy": "visualHint", "visualHint": "🙂" } },
+    { "id": "paoji.core.mouth.open-smile", "type": "mouth", "path": "components/mouth.open-smile.svg", "name": { "zh-CN": "开口笑", "en-US": "Open Smile" }, "fallback": { "component": "paoji.core.mouth.smile", "strategy": "same-slot" } },
+    { "id": "paoji.core.mouth.pout", "type": "mouth", "path": "components/mouth.pout.svg", "name": { "zh-CN": "委屈", "en-US": "Pout" }, "fallback": { "component": "paoji.core.mouth.flat", "strategy": "same-slot" } },
+    { "id": "paoji.core.mouth.flat", "type": "mouth", "path": "components/mouth.flat.svg", "name": { "zh-CN": "平静", "en-US": "Flat" }, "fallback": { "component": "paoji.core.mouth.smile", "strategy": "same-slot" } },
+    { "id": "paoji.core.mouth.surprised", "type": "mouth", "path": "components/mouth.surprised.svg", "name": { "zh-CN": "惊讶", "en-US": "Surprised" }, "fallback": { "component": "paoji.core.mouth.flat", "strategy": "same-slot" } },
+    { "id": "paoji.core.mouth.cat", "type": "mouth", "path": "components/mouth.cat.svg", "name": { "zh-CN": "猫嘴", "en-US": "Cat Mouth" }, "fallback": { "component": "paoji.core.mouth.smile", "strategy": "same-slot" } },
+    { "id": "paoji.core.cheek.blush", "type": "cheek", "path": "components/cheek.blush.svg", "name": { "zh-CN": "腮红", "en-US": "Blush" }, "fallback": { "strategy": "omit" } },
+    { "id": "paoji.core.cheek.lines", "type": "cheek", "path": "components/cheek.lines.svg", "name": { "zh-CN": "害羞线", "en-US": "Shy Lines" }, "fallback": { "component": "paoji.core.cheek.blush", "strategy": "same-slot" } },
+    { "id": "paoji.core.deco.heart", "type": "deco", "path": "components/deco.heart.svg", "name": { "zh-CN": "爱心", "en-US": "Heart" }, "fallback": { "strategy": "visualHint", "visualHint": "❤️" } },
+    { "id": "paoji.core.deco.tear", "type": "deco", "path": "components/deco.tear.svg", "name": { "zh-CN": "泪滴", "en-US": "Tear" }, "fallback": { "strategy": "visualHint", "visualHint": "💧" } },
+    { "id": "paoji.core.deco.sweat", "type": "deco", "path": "components/deco.sweat.svg", "name": { "zh-CN": "汗滴", "en-US": "Sweat" }, "fallback": { "strategy": "visualHint", "visualHint": "💦" } },
+    { "id": "paoji.core.deco.sparkles", "type": "deco", "path": "components/deco.sparkles.svg", "name": { "zh-CN": "闪光", "en-US": "Sparkles" }, "fallback": { "strategy": "visualHint", "visualHint": "✨" } }
+  ]
+}

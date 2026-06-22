@@ -1,5 +1,7 @@
 # 15. 设计师检查清单
 
+> English version: [../en/components/15_designer_checklist.md](../en/components/15_designer_checklist.md)
+
 用于设计师提交 Paoji 组件或组件包前自检。
 
 ## 1. 组件基础
@@ -9,8 +11,8 @@
 - [ ] 命名空间完整。
 - [ ] 有版本号。
 - [ ] 有显示名和描述。
-- [ ] 有中文主语言文本。
-- [ ] 有英文辅助文本。
+- [ ] 有中文说明文本。
+- [ ] 有英文说明文本。
 - [ ] 有 license。
 
 ## 2. 可组合性

@@ -1,0 +1,61 @@
+{
+  "format": "PJP",
+  "id": "paoji.core",
+  "name": {
+    "zh-CN": "Paoji 官方核心表情库",
+    "en-US": "Paoji Official Core Pack"
+  },
+  "version": "0.1.0",
+  "status": "experimental",
+  "author": {
+    "name": "Paoji Contributors"
+  },
+  "trust": "official",
+  "viewBox": "0 0 1024 1024",
+  "requires": [
+    "svg.basic",
+    "svg.path"
+  ],
+  "catalog": "catalog.json",
+  "components": [
+    "components/base.round.svg",
+    "components/base.soft-square.svg",
+    "components/base.cloud.svg",
+    "components/eye.dot.svg",
+    "components/eye.happy.svg",
+    "components/eye.sleepy.svg",
+    "components/eye.pleading.svg",
+    "components/eye.surprised.svg",
+    "components/eye.wink.svg",
+    "components/brow.soft.svg",
+    "components/brow.worried.svg",
+    "components/brow.angry.svg",
+    "components/mouth.smile.svg",
+    "components/mouth.open-smile.svg",
+    "components/mouth.pout.svg",
+    "components/mouth.flat.svg",
+    "components/mouth.surprised.svg",
+    "components/mouth.cat.svg",
+    "components/cheek.blush.svg",
+    "components/cheek.lines.svg",
+    "components/deco.heart.svg",
+    "components/deco.tear.svg",
+    "components/deco.sweat.svg",
+    "components/deco.sparkles.svg"
+  ],
+  "palettes": [
+    "palettes/warm.json",
+    "palettes/lilac.json",
+    "palettes/mint.json",
+    "palettes/mono.json"
+  ],
+  "fallback": {
+    "visualHint": "🙂",
+    "alt": {
+      "zh-CN": "Paoji 表情",
+      "en-US": "Paoji expression"
+    }
+  },
+  "license": "MIT",
+  "hash": "sha256-194d941fe94af2c1716c6b88275f438a5d40168c3913f8def8dc53a9be49767a"
+}

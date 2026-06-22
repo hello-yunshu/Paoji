@@ -1,19 +1,20 @@
 # 09. 多语言与本地化设计
 
-Paoji 的主语言是中文。协议、设计文档、官网、组件说明、Registry 元数据都应以中文为第一语义源，再扩展到其他语言。
+> English version: [../en/examples/09_i18n_localization.md](../en/examples/09_i18n_localization.md)
 
-## 1. 语言优先级
+Paoji 的协议、设计文档、官网、组件说明、Registry 元数据都支持多语言本地化，各语言版本应保持语义一致。
+
+## 1. 支持语言
 
 ```text
-主语言：zh-CN
-首批辅助语言：en-US
+支持语言：zh-CN, en-US
 后续可选：zh-TW / ja-JP / ko-KR / fr-FR / es-ES
 ```
 
 原则：
 
-1. 中文是源语言。
-2. 任何协议术语先定义中文含义，再给英文别名。
+1. 协议字段与标识符不本地化；面向人的内容支持本地化。
+2. 协议术语应有清晰定义，并在各支持语言中提供别名。
 3. Token、ID、namespace、payload 不做自然语言本地化。
 4. 面向用户的 UI、组件名称、alt 文本、帮助文档可以本地化。
 5. PJD / PJP / Registry 需要支持多语言字段。
@@ -165,7 +166,7 @@ zh-TW → zh-CN → en-US → id
 fr-FR → en-US → zh-CN → id
 ```
 
-但由于 Paoji 主语言是中文，官方文档应优先保证 `zh-CN` 完整。
+官方文档应保证各语言版本完整同步。
 
 ## 8. 设计师注意事项
 

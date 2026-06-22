@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Paoji 标志</title>
+  <desc id="desc">由协议括号包围的模块化表情对象</desc>
+  <rect width="128" height="128" rx="32" fill="#fff9f4"/>
+  <path d="M28 34H17v60h11M100 34h11v60h-11" fill="none" stroke="#242128" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="64" cy="64" r="34" fill="#ff716c"/>
+  <path d="M64 30a34 34 0 0 1 29.4 17H64Z" fill="#7655e8"/>
+  <path d="M93.4 47A34 34 0 0 1 64 98V64Z" fill="#ffb128"/>
+  <circle cx="64" cy="57" r="10" fill="#fff9f4"/>
+  <circle cx="64" cy="57" r="5" fill="#242128"/>
+  <path d="M49 75c5 9 25 9 30 0" fill="none" stroke="#242128" stroke-width="7" stroke-linecap="round"/>
+</svg>

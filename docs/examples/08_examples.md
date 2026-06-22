@@ -1,5 +1,7 @@
 # 08. 示例
 
+> English version: [../en/examples/08_examples.md](../en/examples/08_examples.md)
+
 ## 1. 轻量内联表情
 
 Token：

@@ -1,5 +1,7 @@
 # 05. 组件生态设计
 
+> English version: [../en/components/05_component_ecosystem.md](../en/components/05_component_ecosystem.md)
+
 Paoji 的组件生态必须同时支持官方大量增长和用户不可控增长。
 
 ## 1. 官方组件分层

@@ -1,104 +1,134 @@
-# Paoji Design Wiki
+<div align="center">
+  <img src="docs/assets/brand/paoji-logo.png" width="480" alt="Paoji - 开放式表情对象协议" />
 
-Paoji 是一套开放式、可扩展的表情对象协议。它不是“更多 emoji”，而是让任何人都能创造、分享、解析、渲染和降级显示新表情的协议系统。
+  **让表情从固定字符，变成任何人都能创造与传播的开放对象。**
+  *Turn expressions from fixed characters into open objects anyone can create and share.*
 
-## 核心一句话
+  [![Spec](https://img.shields.io/badge/spec-v0.7.0-7655E8?style=flat-square)](docs/protocol/01_protocol_overview.md)
+  [![Language](https://img.shields.io/badge/docs-中文%20%7C%20English-FF716C?style=flat-square)](README.en.md)
+  [![License](https://img.shields.io/badge/license-MIT-242128?style=flat-square)](LICENSE)
 
-**Paoji = 短码入口 + 表情文档 + 组件包生态 + 注册表 + 渲染器 + 降级机制。**
+  [文档索引](docs/index.html) · [协议总览](docs/protocol/01_protocol_overview.md) · [设计师指南](docs/components/06_designer_guide.md) · [English](README.en.md)
+</div>
 
-## 为什么需要 Paoji
+![Paoji 模块化表情对象主视觉](docs/assets/brand/paoji-hero.png)
 
-传统 emoji 的增长依赖中心化标准，新增慢、表达有限、用户不能真正创造可传播的新表情。Paoji 的目标是让表情从“固定字符”变成“可扩展对象”。
+## Paoji 是什么？
 
-## 文件目录
+Paoji 是一套**开放式、可扩展的表情对象协议**。它不试图再增加一批 emoji，而是定义一种通用方式，让表情能够被创造、组合、分享、解析、验证、渲染，并在能力不足的客户端上安全降级。
 
-项目文档按主题分组在 `docs/` 下，通过 GitHub Pages 部署。
+一句话概括：
 
-```text
-Paoji/
-├── .github/workflows/deploy.yml   # GitHub Pages 部署工作流
-├── docs/                          # GitHub Pages 站点根目录
-│   ├── index.html                 # 文档索引页（按主题分组）
-│   ├── paoji_landing.html         # 现代化官网原型
-│   ├── paoji_wiki.html            # 设计师可读版 Wiki
-│   ├── protocol/                  # 协议基础
-│   │   ├── 01_protocol_overview.md
-│   │   ├── 02_ys_token.md
-│   │   ├── 03_pjd_document.md
-│   │   └── 04_pjp_pack.md
-│   ├── components/                # 组件
-│   │   ├── 05_component_ecosystem.md
-│   │   ├── 06_designer_guide.md
-│   │   ├── 13_component_schema.md
-│   │   └── 15_designer_checklist.md
-│   ├── schemas/                   # 数据结构与渲染
-│   │   ├── 11_payload_schema.md
-│   │   └── 12_renderer_resolver.md
-│   ├── registry/                  # 注册表与治理
-│   │   ├── 07_registry_security.md
-│   │   └── 14_governance_registry.md
-│   ├── examples/                  # 示例与本地化
-│   │   ├── 08_examples.md
-│   │   └── 09_i18n_localization.md
-│   ├── reference/                 # 参考
-│   │   ├── 16_implementation_roadmap.md
-│   │   ├── 17_api_reference.md
-│   │   └── 18_testing_compatibility.md
-│   └── meta/                      # 元信息
-│       ├── 10_license_mit.md
-│       ├── 19_glossary.md
-│       ├── 20_faq.md
-│       └── 21_contribution_guide.md
-├── locales/                       # i18n 资源
-│   ├── en-US.json
-│   └── zh-CN.json
-├── LICENSE
-├── README.md
-└── package.json
-```
+> **Paoji = 短码入口 + 表情文档 + 组件包生态 + 注册表 + 渲染器 + 降级机制。**
 
-### 在线访问
+传统 emoji 依赖中心化字符标准：新增周期长、表现能力有限，用户也很难创造一个可跨平台传播的新表情。Paoji 将表情从“固定字符”提升为“可扩展对象”，同时保留短文本易复制、可回退的优点。
 
-推送到 GitHub 后，在仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**，推送 main 分支即可自动部署。站点地址形如 `https://<user>.github.io/Paoji/`。
+## 它如何工作？
 
-## 当前建议版本
+<div align="center">
+  <img src="docs/assets/brand/protocol-flow.svg" width="100%" alt="YS Token 到 Paoji Renderer 的协议工作流" />
+</div>
+
+1. **YS Token** 是可复制、可识别、可校验的短文本入口。
+2. **Resolver** 解析入口并定位对应的 PJD、资源包与版本。
+3. **PJD** 描述表情结构、语义、依赖和降级信息。
+4. **PJP / PJR** 提供组件资源，以及版本、哈希和信任索引。
+5. **Renderer** 验证并组合资源，输出 SVG、PNG 或动态表情；不兼容时回退到 Visual Hint 或替代文本。
 
 ```text
-Paoji v0.6
-YS Token: ⟦YS1<visualHint?>~<payload>.<crc>⟧
-PJD: Paoji Document
-PJP: Paoji Pack
-PJR: Paoji Registry
+YS Token  →  Resolver  →  PJD  →  PJP / PJR  →  Renderer  →  Visual / Fallback
 ```
+
+## 核心对象
+
+| 对象 | 全称 | 作用 |
+|---|---|---|
+| YS Token | 短码入口 | 传播、识别、校验与寻址 |
+| PJD | Paoji Document | 描述表情的结构、语义、依赖与 fallback |
+| PJP | Paoji Pack | 封装组件、材质、动画、字形与主题资源 |
+| PJR | Paoji Registry | 提供资源发现、版本、哈希、信任与生命周期索引 |
+| Renderer | 渲染器 | 解析、验证、沙箱化、组合、缓存与降级显示 |
+
+## 官方核心表情库
+
+仓库现已包含首个实验性 [`paoji.core`](packs/paoji-core/README.md) 组件包。它不是成品表情贴图合集，而是一组能由 Renderer 自由叠加的最小表情元素：
+
+<div align="center">
+  <img src="packs/paoji-core/preview.svg" width="100%" alt="Paoji 官方 Core Pack 的六组表情组合示例" />
+</div>
+
+| 类型 | 数量 | 内容 |
+|---|---:|---|
+| 基础脸型 `base` | 3 | 圆脸、柔方脸、云朵 |
+| 眼睛 `eye` | 6 | 圆点、开心、困倦、恳求、惊讶、眨眼 |
+| 眉毛 `brow` | 3 | 柔和、担忧、生气 |
+| 嘴型 `mouth` | 6 | 微笑、开口笑、委屈、平静、惊讶、猫嘴 |
+| 面部与装饰 `cheek / deco` | 6 | 腮红、害羞线、爱心、泪滴、汗滴、闪光 |
+| 色板 `palette` | 4 | 暖阳、淡紫、薄荷、单色 |
+
+所有组件均为 `1024 × 1024` 透明 SVG，无脚本、无外部字体、无网络依赖，并在 [`catalog.json`](packs/paoji-core/catalog.json) 中声明标准 ID、锚点与 fallback。查看 [Core Pack 使用说明](packs/paoji-core/README.md) 或直接打开 [manifest](packs/paoji-core/manifest.json)。
 
 ## 设计原则
 
-1. Token 永远短。
-2. 表情能力可以无限扩展。
-3. 无限扩展不靠 token，靠 PJD / PJP / Registry。
-4. 官方组件和用户组件走同一套格式。
-5. 区别只在 trust level，不在技术结构。
-6. 所有组件必须有 namespace、version、hash、fallback。
-7. 所有高级能力必须声明 requires。
-8. 所有旧 token 必须尽量可降级显示。
+- **短入口，无限扩展**：Token 只负责传播，复杂能力进入 PJD、PJP 和 Registry。
+- **同构生态**：官方与用户组件使用同一格式，差异体现在 trust level，而不是技术特权。
+- **可验证**：组件必须声明 namespace、version、hash、license 与 requires。
+- **可降级**：复杂能力必须有 fallback；旧 Token 不应因新版本出现而失效。
+- **渐进兼容**：从只显示 Visual Hint，到完整材质、动画和高级组件渲染。
+- **本地化友好**：协议字段保持稳定，界面、文档、语义与 alt 文本可本地化。
 
+## 当前阶段
 
-## 多语言策略
+Paoji `v0.7.0` 目前仍以**协议与生态设计规范**为主，已覆盖 Token、文档格式、组件包、渲染解析、注册治理、安全、测试和贡献流程。仓库已提供实验性的官方 Core Pack；参考 Renderer、正式 JSON Schema、兼容测试套件与 SDK 仍属于后续实现路线，当前不宣称生产可用。
+
+| 能力 | 状态 |
+|---|---|
+| 协议概念与核心对象 | 已形成设计文档 |
+| PJD / PJP / Payload 结构 | 已形成草案 |
+| 组件生态、Registry 与安全治理 | 已形成草案 |
+| API、测试与兼容策略 | 已形成草案 |
+| 官方 Core Pack | `0.1.0 experimental`，已提供 24 个组件与 4 套色板 |
+| 参考 Renderer、正式 Schema 与 SDK | 规划中 |
+| Paoji v1 稳定规范 | 长期目标 |
+
+完整计划见 [实现路线图](docs/reference/16_implementation_roadmap.md)。
+
+## 从哪里开始？
+
+| 你的角色 | 推荐阅读 |
+|---|---|
+| 第一次了解 Paoji | [协议总览](docs/protocol/01_protocol_overview.md) → [常见问题](docs/meta/20_faq.md) |
+| 协议或客户端开发者 | [YS Token](docs/protocol/02_ys_token.md) → [PJD](docs/protocol/03_pjd_document.md) → [Renderer / Resolver](docs/schemas/12_renderer_resolver.md) |
+| 组件设计师 | [组件生态](docs/components/05_component_ecosystem.md) → [设计师指南](docs/components/06_designer_guide.md) → [检查清单](docs/components/15_designer_checklist.md) |
+| Pack / Registry 实现者 | [PJP](docs/protocol/04_pjp_pack.md) → [Registry 安全](docs/registry/07_registry_security.md) → [治理](docs/registry/14_governance_registry.md) |
+| 贡献者 | [路线图](docs/reference/16_implementation_roadmap.md) → [贡献指南](docs/meta/21_contribution_guide.md) |
+
+## 仓库结构
 
 ```text
-主语言：中文 zh-CN
-首批辅助语言：英文 en-US
-协议字段：不本地化
-UI / 文档 / alt 文本：支持本地化
+Paoji/
+├── docs/
+│   ├── assets/        # 核心品牌与协议视觉资源
+│   ├── en/            # 英文版文档镜像
+│   ├── protocol/      # Token、PJD、PJP 与协议基础
+│   ├── components/    # 组件生态、Schema 与设计指南
+│   ├── schemas/       # Payload、Resolver 与 Renderer
+│   ├── registry/      # 注册表、安全与治理
+│   ├── examples/      # 示例和本地化
+│   ├── reference/     # API、路线图与兼容测试
+│   └── meta/          # 术语、FAQ、授权与贡献
+├── packs/             # 官方 PJP 组件包（含 paoji.core）
+├── locales/           # zh-CN / en-US 本地化资源
+├── package.json       # 项目元数据与发布清单
+└── LICENSE            # MIT License
 ```
 
-## 授权策略
+## 语言与贡献
 
-Paoji 协议、文档、参考实现和网页原型采用宽松 MIT 授权。  
-第三方组件包、用户组件包和商业资源包可以声明独立 license。
+Paoji 的文档与生态支持中英双语（`zh-CN` / `en-US`），后续可扩展更多语言。协议字段与标识符不本地化；面向人的文档、UI、语义和替代文本应支持本地化。
 
+欢迎设计师、协议作者、客户端开发者、安全研究者和翻译贡献者参与。提交前请阅读 [贡献指南](docs/meta/21_contribution_guide.md)。协议、文档和网页原型采用 [MIT License](LICENSE)；第三方资源包可以声明独立许可证。
 
-## 当前文档补全状态
-
-v0.7.0 已补齐从概念、协议、设计、组件、渲染、安全、治理、测试到贡献的基础 Wiki。  
-后续若进入开发阶段，建议把这些 Markdown 拆成正式 docs 站点，并配合 JSON Schema、测试用例和参考实现。
+<div align="center">
+  <sub>Paoji v0.7.0 · 中英双语 · MIT License · <a href="README.en.md">English README</a></sub>
+</div>

@@ -1,5 +1,7 @@
 # 16. 实现路线图
 
+> English version: [../en/reference/16_implementation_roadmap.md](../en/reference/16_implementation_roadmap.md)
+
 ## Phase 0：概念验证
 
 目标：证明 Token → PJD → SVG 可行。

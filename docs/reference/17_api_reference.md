@@ -1,5 +1,7 @@
 # 17. 参考 API 草案
 
+> English version: [../en/reference/17_api_reference.md](../en/reference/17_api_reference.md)
+
 这不是最终实现，只是开发者理解协议的参考接口。
 
 ## 1. Token

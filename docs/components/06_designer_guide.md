@@ -1,5 +1,7 @@
 # 06. Paoji 设计师指南
 
+> English version: [../en/components/06_designer_guide.md](../en/components/06_designer_guide.md)
+
 这份文档给设计师使用，重点说明如何设计 Paoji 组件和表情，而不是底层代码。
 
 ## 1. 设计师需要理解的三个对象

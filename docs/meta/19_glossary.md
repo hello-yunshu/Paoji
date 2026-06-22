@@ -1,5 +1,7 @@
 # 19. 术语表
 
+> English version: [../en/meta/19_glossary.md](../en/meta/19_glossary.md)
+
 ## Paoji
 
 开放式表情对象协议的项目名。

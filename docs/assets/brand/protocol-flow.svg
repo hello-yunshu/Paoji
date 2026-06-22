@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" role="img" aria-labelledby="title desc">
+  <title id="title">Paoji 协议工作流</title>
+  <desc id="desc">YS Token 经解析器连接 PJD、PJP 和注册表，最终由渲染器输出表情或降级结果</desc>
+  <rect width="1200" height="260" rx="32" fill="#f7f5ef"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#8a8378"/></marker>
+  </defs>
+  <g font-family="Inter, PingFang SC, system-ui, sans-serif" text-anchor="middle">
+    <g fill="none" stroke="#8a8378" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M202 130h62"/><path d="M428 130h62"/><path d="M654 130h62"/><path d="M880 130h62"/>
+      <path d="M573 96V58h222v38" stroke-dasharray="7 7"/>
+    </g>
+    <g stroke="#242128" stroke-width="2">
+      <rect x="38" y="84" width="164" height="92" rx="24" fill="#ff716c"/>
+      <rect x="264" y="84" width="164" height="92" rx="24" fill="#fff9f4"/>
+      <rect x="490" y="84" width="164" height="92" rx="24" fill="#7655e8"/>
+      <rect x="716" y="84" width="164" height="92" rx="24" fill="#ffb128"/>
+      <rect x="942" y="84" width="220" height="92" rx="24" fill="#fff9f4"/>
+    </g>
+    <g fill="#242128" font-size="22" font-weight="750">
+      <text x="120" y="123">YS Token</text><text x="346" y="123">Resolver</text><text x="798" y="123">PJP + PJR</text><text x="1052" y="123">Renderer</text>
+    </g>
+    <text x="572" y="123" fill="#fff" font-size="22" font-weight="750">PJD</text>
+    <g fill="#5f594f" font-size="14">
+      <text x="120" y="150">传播入口</text><text x="346" y="150">解析与校验</text><text x="572" y="150" fill="#fff">表情文档</text><text x="798" y="150">资源与发现</text><text x="1052" y="150">视觉输出 / 降级</text>
+    </g>
+  </g>
+</svg>

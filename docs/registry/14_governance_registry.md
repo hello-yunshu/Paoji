@@ -1,5 +1,7 @@
 # 14. Registry 与生态治理
 
+> English version: [../en/registry/14_governance_registry.md](../en/registry/14_governance_registry.md)
+
 Paoji 要支持无限扩展，必须有治理机制。治理不是中心化控制，而是让组件可发现、可验证、可降级、可屏蔽。
 
 ## 1. Registry 不是唯一中心

@@ -1,5 +1,7 @@
 # 12. Resolver 与 Renderer
 
+> English version: [../en/schemas/12_renderer_resolver.md](../en/schemas/12_renderer_resolver.md)
+
 Paoji 的显示流程由 Resolver 和 Renderer 共同完成。
 
 ## 1. Resolver 是什么
