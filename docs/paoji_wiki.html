@@ -357,6 +357,43 @@
 
       body.innerHTML = kicker + breadcrumb + `<div class="md">${html}</div>` + navHtml;
 
+      // 修复 markdown 内的语言切换链接（../en/xxx.md / ../../xxx.md）
+      // 这些链接相对于 markdown 文件位置，但在 wiki 中需相对于 paoji_wiki.html 解析，会 404
+      body.querySelectorAll('.md a[href]').forEach(a => {
+        const href = a.getAttribute('href');
+        // 中文文档里的 "English version: ../en/protocol/xxx.md"
+        const enMatch = href.match(/^\.\.\/en\/(.+\.md)$/);
+        // 英文文档里的 "中文版：../../protocol/xxx.md"
+        const zhMatch = href.match(/^\.\.\/\.\.\/(.+\.md)$/);
+        if(enMatch){
+          const docPath = enMatch[1];
+          a.href = '#' + docPath;
+          a.onclick = (e) => {
+            e.preventDefault();
+            if(curLang !== 'en'){
+              curLang = 'en';
+              try{ localStorage.setItem('paoji-wiki-lang', 'en'); }catch(e){}
+              updateLangBtn();
+              renderNav();
+            }
+            location.hash = docPath;
+          };
+        } else if(zhMatch){
+          const docPath = zhMatch[1];
+          a.href = '#' + docPath;
+          a.onclick = (e) => {
+            e.preventDefault();
+            if(curLang !== 'zh'){
+              curLang = 'zh';
+              try{ localStorage.setItem('paoji-wiki-lang', 'zh'); }catch(e){}
+              updateLangBtn();
+              renderNav();
+            }
+            location.hash = docPath;
+          };
+        }
+      });
+
       // 绑定上下页点击
       body.querySelectorAll('.doc-nav a').forEach(a => {
         a.onclick = (e) => {
