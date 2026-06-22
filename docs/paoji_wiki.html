@@ -4,101 +4,240 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Paoji Wiki — Designer &amp; Protocol Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d0d0d;--ink:#f5f1e8;--muted:#a7a196;--line:rgba(255,255,255,.14);--panel:rgba(255,255,255,.07);--accent:#ff5fa3;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",system-ui,sans-serif}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,rgba(255,95,163,.18),transparent 32%),radial-gradient(circle at 88% 12%,rgba(120,102,255,.18),transparent 30%),var(--bg);color:var(--ink)}
-.layout{display:grid;grid-template-columns:300px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;padding:28px;border-right:1px solid var(--line);background:rgba(0,0,0,.25);backdrop-filter:blur(20px)}.brand{font-weight:920;font-size:26px;letter-spacing:-.06em;margin-bottom:24px}.brand img{width:100%;max-width:220px;height:auto;margin-bottom:12px;display:block}.side a{display:block;color:var(--muted);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--line);font-weight:700}.content{padding:42px 56px 80px;max-width:1120px}h1{font-size:clamp(48px,8vw,108px);line-height:.86;letter-spacing:-.08em;margin:0 0 26px}h2{font-size:42px;letter-spacing:-.05em;margin:56px 0 14px}h3{font-size:24px;margin:28px 0 10px}p,li{color:var(--muted);line-height:1.78;font-size:16px}.hero{padding:30px;border:1px solid var(--line);border-radius:34px;background:var(--panel);margin-bottom:30px}.token{font:800 20px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere;color:#fff}pre{padding:18px;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid var(--line);overflow:auto;font:700 13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#f9f4ed}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#fff}table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden}th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:#fff}td{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{border:1px solid var(--line);border-radius:28px;padding:22px;background:var(--panel)}.card b{display:block;margin-bottom:8px;font-size:18px}.call{border-left:4px solid var(--accent);padding:16px 18px;background:rgba(255,95,163,.10);border-radius:16px;color:#fff}
-@media(max-width:860px){.layout{grid-template-columns:1fr}.side{position:relative;height:auto}.content{padding:28px}.grid{grid-template-columns:1fr}}
+  :root{
+    --paper:#f3efe6;
+    --paper-2:#ece7da;
+    --ink:#1a1814;
+    --ink-soft:#3a352d;
+    --muted:#8a8478;
+    --line:rgba(26,24,20,.12);
+    --line-strong:rgba(26,24,20,.22);
+    --accent:#d84727;
+    --shadow:0 1px 0 rgba(26,24,20,.06), 0 24px 60px -28px rgba(26,24,20,.18);
+    --display:"Fraunces", "Songti SC", "Noto Serif SC", Georgia, serif;
+    --sans:"Instrument Sans", -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  [data-theme="dark"]{
+    --paper:#14130f;
+    --paper-2:#1c1a15;
+    --ink:#f0ebe0;
+    --ink-soft:#d4cec0;
+    --muted:#8d8779;
+    --line:rgba(240,235,224,.12);
+    --line-strong:rgba(240,235,224,.22);
+    --accent:#ff6b4a;
+    --shadow:0 1px 0 rgba(0,0,0,.3), 0 30px 70px -30px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--ink);
+    background:var(--paper);
+    font-family:var(--sans);
+    font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    transition:background .6s ease, color .6s ease;
+  }
+  body:before{
+    content:"";position:fixed;inset:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");
+    opacity:.5;mix-blend-mode:multiply;pointer-events:none;z-index:1;
+  }
+  [data-theme="dark"] body:before{mix-blend-mode:screen;opacity:.18}
+
+  .layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh;position:relative;z-index:2}
+  .side{
+    position:sticky;top:0;height:100vh;padding:36px 28px;
+    border-right:1px solid var(--line);
+    background:var(--paper-2);
+    overflow-y:auto;
+  }
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .logo{height:28px;width:auto;display:block;border-radius:6px}
+  [data-theme="dark"] .brand .logo{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.95)}
+  .side .sub{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:32px}
+  .side a{
+    display:flex;align-items:center;gap:10px;
+    color:var(--muted);text-decoration:none;
+    padding:10px 0;border-bottom:1px solid var(--line);
+    font-size:14px;font-weight:500;
+    transition:color .2s ease, padding-left .2s ease;
+    position:relative;
+  }
+  .side a:before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:0;height:1px;background:var(--accent);transition:width .25s ease}
+  .side a:hover{color:var(--ink);padding-left:14px}
+  .side a:hover:before{width:8px}
+  .side a .num{font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:700;min-width:24px}
+
+  .side .theme-row{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+  .iconbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s ease, transform .2s ease}
+  .iconbtn:hover{background:var(--paper);transform:rotate(-8deg)}
+  .iconbtn svg{width:16px;height:16px}
+
+  .content{padding:56px 64px 90px;max-width:1080px}
+  .kicker{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:28px}
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent)}
+  .kicker .sep{width:24px;height:1px;background:var(--line-strong)}
+
+  h1{font-family:var(--display);font-weight:340;font-size:clamp(44px,7vw,96px);line-height:.9;letter-spacing:-.045em;margin:0 0 28px;font-variation-settings:"opsz" 144, "SOFT" 50}
+  h1 em{font-style:italic;color:var(--accent);font-weight:300}
+  h2{font-family:var(--display);font-weight:380;font-size:clamp(30px,4vw,52px);letter-spacing:-.03em;line-height:1.02;margin:64px 0 18px;display:flex;align-items:baseline;gap:14px;font-variation-settings:"opsz" 96}
+  h2 .num{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700;letter-spacing:.1em}
+  h3{font-family:var(--display);font-weight:500;font-size:22px;margin:28px 0 10px;letter-spacing:-.02em}
+  p,li{color:var(--ink-soft);line-height:1.78;font-size:15.5px}
+  p{margin:0 0 14px}
+  ul{padding-left:20px}
+  li{margin-bottom:8px}
+  li::marker{color:var(--accent)}
+
+  .hero{padding:30px 32px;border:1px solid var(--line-strong);border-radius:20px;background:linear-gradient(180deg, var(--paper-2), var(--paper));margin-bottom:30px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hero:after{content:"";position:absolute;inset:auto -20% -40% 30%;height:160px;background:radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%);pointer-events:none}
+  .token{font-family:var(--mono);font-weight:500;font-size:clamp(16px,2vw,20px);line-height:1.5;color:var(--ink);overflow-wrap:anywhere;padding:14px 16px;border-radius:12px;background:color-mix(in srgb, var(--ink) 5%, var(--paper));border:1px solid var(--line);position:relative;margin-bottom:14px}
+  [data-theme="dark"] .token{background:color-mix(in srgb, var(--ink) 8%, transparent)}
+  .token .bracket{color:var(--accent);font-weight:700}
+  .hero p{position:relative;margin:0}
+
+  pre{padding:18px 20px;border-radius:14px;background:color-mix(in srgb, var(--ink) 5%, var(--paper));border:1px solid var(--line);overflow:auto;font-family:var(--mono);font-weight:500;font-size:13px;line-height:1.65;color:var(--ink-soft);margin:0 0 16px}
+  [data-theme="dark"] pre{background:color-mix(in srgb, var(--ink) 6%, transparent)}
+  pre .k{color:var(--accent);font-weight:600}
+  pre .c{color:var(--muted)}
+  code{font-family:var(--mono);font-size:.92em;color:var(--accent);font-weight:500}
+
+  table{width:100%;border-collapse:collapse;background:var(--paper-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:0 0 16px;font-size:14px}
+  th,td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:var(--paper)}
+  td{color:var(--ink-soft)}
+  tr:last-child td{border-bottom:none}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:0 0 16px}
+  .card{border:none;padding:24px 22px;background:var(--paper);transition:background .25s ease}
+  .card:hover{background:var(--paper-2)}
+  .card b{display:block;margin-bottom:8px;font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.01em}
+  .card b .mono{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--muted);display:block;margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+  .card p{margin:0;color:var(--muted);line-height:1.65;font-size:14px}
+
+  .call{border-left:3px solid var(--accent);padding:16px 20px;background:color-mix(in srgb, var(--accent) 8%, var(--paper));border-radius:0 14px 14px 0;color:var(--ink);font-family:var(--display);font-style:italic;font-size:18px;line-height:1.5;letter-spacing:-.01em;margin:0 0 16px}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .layout{grid-template-columns:1fr}
+    .side{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    .content{padding:36px 24px 60px}
+    .grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
 <div class="layout">
-<aside class="side">
-  <div class="brand"><img src="assets/brand/paoji-logo.png" alt="Paoji" />Paoji Wiki</div>
-  <a href="#idea">核心概念</a>
-  <a href="#token">YS Token</a>
-  <a href="#objects">PJD / PJP / PJR</a>
-  <a href="#components">组件生态</a>
-  <a href="#designer">设计师规则</a>
-  <a href="#fallback">降级策略</a>
-  <a href="#i18n">多语言与授权</a>
-  <a href="#complete-docs">补全文档索引</a>
-</aside>
-<main class="content">
-  <section id="idea">
-    <h1>Open emoji object protocol.</h1>
-    <div class="hero">
-      <p class="token">⟦YS1🐱💜🥺😿🫧🌙🪽💧~AgEBAf8A.gGs⟧</p>
-      <p>Paoji 不是更多 emoji，而是一套允许表情无限扩展、被验证、被渲染、被降级显示的对象协议。</p>
+  <aside class="side">
+    <div class="brand"><img class="logo" src="assets/brand/paoji-logo.png" alt="Paoji"/></div>
+    <div class="sub">Wiki · v0.7.0</div>
+    <a href="#idea"><span class="num">01</span>核心概念</a>
+    <a href="#token"><span class="num">02</span>YS Token</a>
+    <a href="#objects"><span class="num">03</span>PJD / PJP / PJR</a>
+    <a href="#components"><span class="num">04</span>组件生态</a>
+    <a href="#designer"><span class="num">05</span>设计师规则</a>
+    <a href="#fallback"><span class="num">06</span>降级策略</a>
+    <a href="#i18n"><span class="num">07</span>多语言与授权</a>
+    <a href="#complete-docs"><span class="num">08</span>补全文档索引</a>
+    <div class="theme-row">
+      <button class="iconbtn" id="themeBtn" title="切换主题 / Toggle theme" aria-label="theme">
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
     </div>
-    <div class="call">一句话：官方组件保证最低可见性，用户组件保证无限创造。</div>
-  </section>
+  </aside>
 
-  <section id="token">
-    <h2>YS Token</h2>
-    <pre>⟦YS1&lt;visualHint?&gt;~&lt;payload&gt;.&lt;crc&gt;⟧</pre>
-    <table><tr><th>字段</th><th>含义</th></tr><tr><td>YS</td><td>协议族，大小写敏感。</td></tr><tr><td>visualHint</td><td>视觉提示区，不是权威数据。</td></tr><tr><td>payload</td><td>机器入口数据，可为 InlineCore / PackRef / DocRef。</td></tr><tr><td>crc</td><td>校验，防止误替换和篡改。</td></tr></table>
-  </section>
+  <main class="content">
+    <section id="idea" class="reveal">
+      <div class="kicker"><span class="dot"></span><span>Wiki · Designer & Protocol Notes</span></div>
+      <h1>Open emoji <em>object protocol</em>.</h1>
+      <div class="hero">
+        <div class="token"><span class="bracket">⟦</span>YS1🐱💜🥺😿🫧🌙🪽💧~AgEBAf8A.gGs<span class="bracket">⟧</span></div>
+        <p>Paoji 不是更多 emoji，而是一套允许表情无限扩展、被验证、被渲染、被降级显示的对象协议。</p>
+      </div>
+      <div class="call">一句话：官方组件保证最低可见性，用户组件保证无限创造。</div>
+    </section>
 
-  <section id="objects">
-    <h2>PJD / PJP / PJR</h2>
-    <div class="grid">
-      <div class="card"><b>PJD</b><p>表情明文文档，描述节点、组件、语义、能力需求和 fallback。</p></div>
-      <div class="card"><b>PJP</b><p>资源包，承载组件、材质、动画、角色模板和预览。</p></div>
-      <div class="card"><b>PJR</b><p>注册表，负责命名空间、版本、hash、信任等级和发现。</p></div>
-      <div class="card"><b>Renderer</b><p>负责解析、加载、验证、沙箱渲染和降级显示。</p></div>
-    </div>
-  </section>
+    <section id="token" class="reveal">
+      <h2><span class="num">02</span>YS Token</h2>
+      <pre><span class="k">⟦</span>YS1&lt;visualHint?&gt;~&lt;payload&gt;.&lt;crc&gt;<span class="k">⟧</span></pre>
+      <table>
+        <tr><th>字段</th><th>含义</th></tr>
+        <tr><td><code>YS</code></td><td>协议族，大小写敏感。</td></tr>
+        <tr><td><code>visualHint</code></td><td>视觉提示区，不是权威数据。</td></tr>
+        <tr><td><code>payload</code></td><td>机器入口数据，可为 InlineCore / PackRef / DocRef。</td></tr>
+        <tr><td><code>crc</code></td><td>校验，防止误替换和篡改。</td></tr>
+      </table>
+    </section>
 
-  <section id="components">
-    <h2>组件生态</h2>
-    <p>官方组件也会大量增长，所以官方组件和用户组件必须使用同一套 PJP 格式。区别不是格式，而是 trust level。</p>
-    <pre>paoji.core.eye.sleepy
+    <section id="objects" class="reveal">
+      <h2><span class="num">03</span>PJD / PJP / PJR</h2>
+      <div class="grid">
+        <div class="card"><b>PJD<span class="mono">document</span></b><p>表情明文文档，描述节点、组件、语义、能力需求和 fallback。</p></div>
+        <div class="card"><b>PJP<span class="mono">pack</span></b><p>资源包，承载组件、材质、动画、角色模板和预览。</p></div>
+        <div class="card"><b>PJR<span class="mono">registry</span></b><p>注册表，负责命名空间、版本、hash、信任等级和发现。</p></div>
+        <div class="card"><b>Renderer<span class="mono">runtime</span></b><p>负责解析、加载、验证、沙箱渲染和降级显示。</p></div>
+      </div>
+    </section>
+
+    <section id="components" class="reveal">
+      <h2><span class="num">04</span>组件生态</h2>
+      <p>官方组件也会大量增长，所以官方组件和用户组件必须使用同一套 PJP 格式。区别不是格式，而是 <code>trust level</code>。</p>
+      <pre>paoji.core.eye.sleepy
 paoji.std.deco.bubble
 paoji.official.cloud.deco.soft-bubble
 user.hiyunshu.cloudglass.eye.sleepy-crystal
 creator.mochi.plushcat.mouth.pout</pre>
-  </section>
+    </section>
 
-  <section id="designer">
-    <h2>设计师规则</h2>
-    <ul>
-      <li>使用 1024×1024 标准画布。</li>
-      <li>组件必须声明类型：base / eye / mouth / deco / material / motion。</li>
-      <li>基底组件必须提供锚点。</li>
-      <li>复杂组件必须有官方 fallback。</li>
-      <li>不要依赖脚本、外部图片、远程字体或不可控滤镜。</li>
-    </ul>
-  </section>
+    <section id="designer" class="reveal">
+      <h2><span class="num">05</span>设计师规则</h2>
+      <ul>
+        <li>使用 <code>1024×1024</code> 标准画布。</li>
+        <li>组件必须声明类型：<code>base</code> / <code>eye</code> / <code>mouth</code> / <code>deco</code> / <code>material</code> / <code>motion</code>。</li>
+        <li>基底组件必须提供锚点。</li>
+        <li>复杂组件必须有官方 fallback。</li>
+        <li>不要依赖脚本、外部图片、远程字体或不可控滤镜。</li>
+      </ul>
+    </section>
 
-  <section id="fallback">
-    <h2>降级策略</h2>
-    <pre>完整 PJP 渲染
-↓
+    <section id="fallback" class="reveal">
+      <h2><span class="num">06</span>降级策略</h2>
+      <pre>完整 PJP 渲染
+  <span class="c">↓</span>
 基础 PJD 渲染
-↓
+  <span class="c">↓</span>
 Paoji Core fallback
-↓
+  <span class="c">↓</span>
 Visual Hint
-↓
+  <span class="c">↓</span>
 alt 文本</pre>
-    <p>这是 Paoji 替代 emoji 的生命线：不能完整显示，也必须尽量有东西可见。</p>
-  </section>
+      <p>这是 Paoji 替代 emoji 的生命线：不能完整显示，也必须尽量有东西可见。</p>
+    </section>
 
-  <section id="i18n">
-    <h2>多语言与授权</h2>
-    <p>Paoji 的文档与生态支持中英双语（zh-CN / en-US）。协议字段、Token、namespace、hash、version 不本地化；UI 文案、组件显示名、alt 文本、设计文档可以本地化。</p>
-    <pre>支持语言：zh-CN, en-US
+    <section id="i18n" class="reveal">
+      <h2><span class="num">07</span>多语言与授权</h2>
+      <p>Paoji 的文档与生态支持中英双语（<code>zh-CN</code> / <code>en-US</code>）。协议字段、Token、namespace、hash、version 不本地化；UI 文案、组件显示名、alt 文本、设计文档可以本地化。</p>
+      <pre>支持语言：zh-CN, en-US
 协议授权：MIT
 组件包授权：由各 PJP Pack 自行声明</pre>
-    <p>协议本体采用宽松 MIT 授权；用户组件包、商业组件包或第三方视觉资产可以声明独立 license。</p>
-  </section>
+      <p>协议本体采用宽松 MIT 授权；用户组件包、商业组件包或第三方视觉资产可以声明独立 license。</p>
+    </section>
 
-
-  <section id="complete-docs">
-    <h2>完整文档索引</h2>
-    <p>以下文档覆盖了协议设计、组件开发、渲染、安全、治理等完整环节，让设计师知道如何设计组件，也让开发者知道如何解析、验证、渲染和降级。</p>
-    <pre>schemas/11_payload_schema.md
+    <section id="complete-docs" class="reveal">
+      <h2><span class="num">08</span>完整文档索引</h2>
+      <p>以下文档覆盖了协议设计、组件开发、渲染、安全、治理等完整环节，让设计师知道如何设计组件，也让开发者知道如何解析、验证、渲染和降级。</p>
+      <pre>schemas/11_payload_schema.md
 schemas/12_renderer_resolver.md
 components/13_component_schema.md
 registry/14_governance_registry.md
@@ -109,10 +248,41 @@ reference/18_testing_compatibility.md
 meta/19_glossary.md
 meta/20_faq.md
 meta/21_contribution_guide.md</pre>
-    <p>这些文档让设计师知道如何设计组件，也让开发者知道如何解析、验证、渲染和降级。</p>
-  </section>
-
-</main>
+      <p>这些文档让设计师知道如何设计组件，也让开发者知道如何解析、验证、渲染和降级。</p>
+    </section>
+  </main>
 </div>
+<script>
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('iconSun');
+  const THEMES = ['light', 'dark', 'auto'];
+  const THEME_ICONS = {
+    light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+    dark: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    auto: '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none"/>'
+  };
+  const THEME_LABEL = { light: '亮色 Light', dark: '暗色 Dark', auto: '自动 Auto' };
+  const mqDark = window.matchMedia('(prefers-color-scheme: dark)');
+  function applyTheme(pref){
+    const actual = pref === 'auto' ? (mqDark.matches ? 'dark' : 'light') : pref;
+    root.dataset.theme = actual;
+    themeIcon.innerHTML = THEME_ICONS[pref];
+    themeBtn.title = `主题：${THEME_LABEL[pref]}（点击切换）`;
+    try{ localStorage.setItem('paoji-theme', pref); }catch(e){}
+  }
+  let curPref = 'auto';
+  try{ curPref = localStorage.getItem('paoji-theme') || 'auto'; }catch(e){}
+  applyTheme(curPref);
+  themeBtn.onclick = () => { curPref = THEMES[(THEMES.indexOf(curPref) + 1) % THEMES.length]; applyTheme(curPref); };
+  mqDark.addEventListener('change', () => { if(curPref === 'auto') applyTheme('auto'); });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:0.08, rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
