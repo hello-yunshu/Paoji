@@ -1,5 +1,7 @@
 # 04. PJP：Paoji Pack
 
+> English version: [../en/protocol/04_pjp_pack.md](../en/protocol/04_pjp_pack.md)
+
 PJP 是 Paoji 的组件包格式。官方组件、用户组件、创作者组件都使用 PJP。
 
 ## 1. 包结构

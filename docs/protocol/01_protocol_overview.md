@@ -1,5 +1,7 @@
 # 01. Paoji 协议总览
 
+> English version: [../en/protocol/01_protocol_overview.md](../en/protocol/01_protocol_overview.md)
+
 ## 1. 定义
 
 Paoji 是一套开放式表情对象协议。它通过一段可复制的短文本 Token 表达一个表情入口，再由解析器找到对应的表情文档、组件包和资源，最终由渲染器显示成可视化表情。

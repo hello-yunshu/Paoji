@@ -1,5 +1,7 @@
 # 10. License：松散 MIT
 
+> English version: [../en/meta/10_license_mit.md](../en/meta/10_license_mit.md)
+
 Paoji 当前建议采用偏宽松的 MIT 授权。
 
 ## 1. 授权范围

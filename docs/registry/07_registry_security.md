@@ -1,5 +1,7 @@
 # 07. Registry、安全与信任
 
+> English version: [../en/registry/07_registry_security.md](../en/registry/07_registry_security.md)
+
 ## 1. PJR Registry 作用
 
 PJR Registry 负责：

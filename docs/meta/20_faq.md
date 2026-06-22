@@ -1,5 +1,7 @@
 # 20. FAQ
 
+> English version: [../en/meta/20_faq.md](../en/meta/20_faq.md)
+
 ## Paoji 是 emoji 吗？
 
 不是传统 Unicode emoji。Paoji 是开放式表情对象协议。

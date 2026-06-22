@@ -1,5 +1,7 @@
 # 13. Component Schema
 
+> English version: [../en/components/13_component_schema.md](../en/components/13_component_schema.md)
+
 Paoji 组件是可复用、可参数化、可降级的视觉对象。
 
 ## 1. 组件基础结构
@@ -58,7 +60,7 @@ effect
 
 ## 4. Anchor
 
-Anchor 用于跨组件对齐。
+Anchor 用于跨组件对齐。锚点是标准参考点，组件应以锚点为基准定位，但允许根据设计需要有一定偏移（例如不同嘴型可能位于不同高度）。Renderer 按锚点叠加组件。
 
 ```json
 {

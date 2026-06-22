@@ -1,5 +1,7 @@
 # 03. PJD：Paoji Document
 
+> English version: [../en/protocol/03_pjd_document.md](../en/protocol/03_pjd_document.md)
+
 PJD 是 Paoji 表情的明文状态。Token 是短入口，PJD 是完整结构。
 
 ## 1. 最小结构

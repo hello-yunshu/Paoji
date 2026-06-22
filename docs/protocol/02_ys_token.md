@@ -1,5 +1,7 @@
 # 02. YS Token 规范
 
+> English version: [../en/protocol/02_ys_token.md](../en/protocol/02_ys_token.md)
+
 ## 1. 基本格式
 
 ```text

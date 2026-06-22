@@ -1,5 +1,7 @@
 # 11. Payload Schema 设计
 
+> English version: [../en/schemas/11_payload_schema.md](../en/schemas/11_payload_schema.md)
+
 YS Token 的 payload 是机器入口数据。它不负责承载无限复杂度，而是负责告诉 Resolver：这个表情应该如何展开。
 
 ## 1. Payload 基本原则

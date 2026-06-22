@@ -1,5 +1,7 @@
 # 18. 测试与兼容性
 
+> English version: [../en/reference/18_testing_compatibility.md](../en/reference/18_testing_compatibility.md)
+
 Paoji 需要测试的不只是渲染效果，还包括协议稳定性、安全、降级和跨版本兼容。
 
 ## 1. Token 测试

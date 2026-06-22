@@ -1,5 +1,7 @@
 # 21. 贡献指南
 
+> English version: [../en/meta/21_contribution_guide.md](../en/meta/21_contribution_guide.md)
+
 Paoji 的生态需要设计师、开发者、协议设计者和社区共同参与。
 
 ## 1. 可以贡献什么
@@ -25,8 +27,8 @@ Registry 设计
 - 有 fallback。
 - 有 preview。
 - 通过安全扫描。
-- 有中文主语言说明。
-- 推荐有英文说明。
+- 有完整中文说明。
+- 有完整英文说明。
 
 ## 3. 命名规则
 
@@ -54,8 +56,8 @@ creator.mochi.plushcat.eye.sleepy-soft
 
 ## 5. 文档贡献
 
-文档默认主语言为中文。  
-英文文档可以作为辅助语言，但中文说明必须完整。
+文档支持多语言。  
+各语言版本应保持同步且完整。
 
 ## 6. 版本原则
 

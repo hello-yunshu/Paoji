@@ -1,5 +1,5 @@
 {
-  "name": "Paoji Design Kit",
+  "name": "Paoji",
   "version": "0.7.0",
   "primaryLanguage": "zh-CN",
   "supportedLanguages": [
@@ -15,6 +15,12 @@
     "docs/index.html",
     "docs/paoji_landing.html",
     "docs/paoji_wiki.html",
+    "docs/assets/README.md",
+    "docs/assets/brand/paoji-mark.svg",
+    "docs/assets/brand/paoji-logo.png",
+    "docs/assets/brand/paoji-hero.png",
+    "docs/assets/brand/protocol-flow.svg",
+    "packs/paoji-core",
     "docs/protocol/01_protocol_overview.md",
     "docs/protocol/02_ys_token.md",
     "docs/protocol/03_pjd_document.md",
