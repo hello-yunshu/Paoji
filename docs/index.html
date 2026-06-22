@@ -4,95 +4,206 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Paoji Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  color:#161616;
-  background:#f7f5ef;
-}
-body{margin:0;background:radial-gradient(circle at 15% 0,rgba(255,79,154,.16),transparent 28%),radial-gradient(circle at 85% 8%,rgba(111,92,255,.14),transparent 28%),#f7f5ef}
-main{width:min(1040px,calc(100vw - 36px));margin:0 auto;padding:48px 0 80px}
-h1{font-size:clamp(44px,9vw,108px);letter-spacing:-.08em;line-height:.86;margin:0 0 18px}
-.lead{color:#756f63;line-height:1.75;max-width:680px;margin:0 0 36px}
-.top-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
-.top-actions a{padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:800;font-size:14px;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.55);color:#161616}
-.top-actions a.primary{background:#161616;color:#fff;border-color:#161616}
-h2{font-size:22px;letter-spacing:-.03em;margin:40px 0 14px;display:flex;align-items:center;gap:10px}
-h2 .tag{font-size:11px;font-weight:700;color:#756f63;padding:3px 10px;border:1px solid rgba(0,0,0,.15);border-radius:999px;letter-spacing:.04em;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-a.card{display:block;padding:18px 20px;border:1px solid rgba(0,0,0,.12);border-radius:24px;background:rgba(255,255,255,.55);text-decoration:none;color:#161616;font-weight:800;transition:transform .15s ease,border-color .15s ease}
-a.card:hover{transform:translateY(-2px);border-color:rgba(0,0,0,.3)}
-a.card span{display:block;color:#756f63;font-weight:500;margin-top:6px;line-height:1.5;font-size:14px}
-footer{margin-top:60px;padding-top:24px;border-top:1px solid rgba(0,0,0,.1);color:#756f63;font-size:13px;line-height:1.6}
-@media(max-width:720px){.grid{grid-template-columns:1fr}}
+  :root{
+    --paper:#f3efe6;
+    --paper-2:#ece7da;
+    --ink:#1a1814;
+    --ink-soft:#3a352d;
+    --muted:#8a8478;
+    --line:rgba(26,24,20,.12);
+    --line-strong:rgba(26,24,20,.22);
+    --accent:#d84727;
+    --shadow:0 1px 0 rgba(26,24,20,.06), 0 24px 60px -28px rgba(26,24,20,.18);
+    --display:"Fraunces", "Songti SC", "Noto Serif SC", Georgia, serif;
+    --sans:"Instrument Sans", -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  [data-theme="dark"]{
+    --paper:#14130f;
+    --paper-2:#1c1a15;
+    --ink:#f0ebe0;
+    --ink-soft:#d4cec0;
+    --muted:#8d8779;
+    --line:rgba(240,235,224,.12);
+    --line-strong:rgba(240,235,224,.22);
+    --accent:#ff6b4a;
+    --shadow:0 1px 0 rgba(0,0,0,.3), 0 30px 70px -30px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--ink);
+    background:var(--paper);
+    font-family:var(--sans);
+    font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    transition:background .6s ease, color .6s ease;
+  }
+  body:before{
+    content:"";position:fixed;inset:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");
+    opacity:.5;mix-blend-mode:multiply;pointer-events:none;z-index:1;
+  }
+  [data-theme="dark"] body:before{mix-blend-mode:screen;opacity:.18}
+  main{width:min(1080px,calc(100vw - 48px));margin:0 auto;padding:56px 0 90px;position:relative;z-index:2}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:64px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand .logo{height:30px;width:auto;display:block;border-radius:6px}
+  [data-theme="dark"] .brand .logo{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.95)}
+  .iconbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s ease, transform .2s ease}
+  .iconbtn:hover{background:var(--paper-2);transform:rotate(-8deg)}
+  .iconbtn svg{width:16px;height:16px}
+
+  .kicker{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:28px}
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent)}
+  .kicker .sep{width:24px;height:1px;background:var(--line-strong)}
+
+  h1{font-family:var(--display);font-weight:340;font-size:clamp(48px,9vw,120px);letter-spacing:-.045em;line-height:.9;margin:0 0 24px;font-variation-settings:"opsz" 144, "SOFT" 50}
+  h1 em{font-style:italic;color:var(--accent);font-weight:300}
+  .lead{font-family:var(--display);font-weight:380;font-size:clamp(20px,2.2vw,28px);line-height:1.35;color:var(--ink-soft);max-width:680px;margin:0 0 40px;letter-spacing:-.02em}
+  .lead a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+
+  .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:64px}
+  .top-actions a{padding:11px 18px;border-radius:99px;text-decoration:none;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line-strong);background:transparent;color:var(--ink);transition:all .2s ease}
+  .top-actions a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+  .top-actions a.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .top-actions a.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  h2{font-family:var(--display);font-weight:360;font-size:clamp(28px,4vw,52px);letter-spacing:-.03em;line-height:1;margin:56px 0 22px;display:flex;align-items:baseline;gap:14px;font-variation-settings:"opsz" 96}
+  h2 .tag{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--muted);padding:4px 10px;border:1px solid var(--line-strong);border-radius:99px;letter-spacing:.1em;text-transform:uppercase}
+  h2 .num{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700;letter-spacing:.1em}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  a.card{display:block;padding:22px 24px;background:var(--paper);text-decoration:none;color:var(--ink);transition:background .25s ease;position:relative}
+  a.card:hover{background:var(--paper-2)}
+  a.card .fname{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink);letter-spacing:.01em}
+  a.card .desc{display:block;color:var(--muted);font-family:var(--sans);font-weight:400;margin-top:6px;line-height:1.5;font-size:14px}
+  a.card:after{content:"→";position:absolute;top:22px;right:24px;color:var(--accent);opacity:0;transform:translateX(-4px);transition:all .25s ease;font-family:var(--mono)}
+  a.card:hover:after{opacity:1;transform:translateX(0)}
+
+  footer{margin-top:80px;padding-top:28px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.7;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono)}
+  footer code{font-family:var(--mono);background:var(--paper-2);padding:2px 6px;border-radius:4px;font-size:12px}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <main>
-<h1>Paoji Docs</h1>
-<p class="lead">协议采用 MIT。以下文档按主题分组，用于协议设计、组件设计、开发实现和生态治理。英文版见 <a href="en/">docs/en/</a>。</p>
+  <div class="topbar">
+    <div class="brand"><img class="logo" src="assets/brand/paoji-logo.png" alt="Paoji"/></div>
+    <button class="iconbtn" id="themeBtn" title="切换主题 / Toggle theme" aria-label="theme">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
 
-<div class="top-actions">
-  <a class="primary" href="paoji_landing.html">官网原型</a>
-  <a href="paoji_wiki.html">Wiki 页面</a>
-  <a href="../packs/paoji-core/README.md">官方 Core Pack</a>
-  <a href="../README.md">项目 README</a>
-  <a href="en/">English Docs</a>
-</div>
+  <div class="kicker"><span class="dot"></span><span>Documentation Index</span><span class="sep"></span><span>v0.7.0</span></div>
+  <h1>Paoji <em>Docs</em></h1>
+  <p class="lead">协议采用 MIT。以下文档按主题分组，用于协议设计、组件设计、开发实现和生态治理。英文版见 <a href="en/">docs/en/</a>。</p>
 
-<h2>协议基础 <span class="tag">protocol</span></h2>
-<div class="grid">
-  <a class="card" href="protocol/01_protocol_overview.md">01_protocol_overview.md<span>协议总览</span></a>
-  <a class="card" href="protocol/02_ys_token.md">02_ys_token.md<span>YS Token 结构</span></a>
-  <a class="card" href="protocol/03_pjd_document.md">03_pjd_document.md<span>PJD 文档格式</span></a>
-  <a class="card" href="protocol/04_pjp_pack.md">04_pjp_pack.md<span>PJP 组件包</span></a>
-</div>
+  <div class="top-actions">
+    <a class="primary" href="paoji_landing.html">官网主页</a>
+    <a href="paoji_wiki.html">Wiki 页面</a>
+    <a href="../packs/paoji-core/README.md">官方 Core Pack</a>
+    <a href="../README.md">项目 README</a>
+    <a href="en/">English Docs</a>
+  </div>
 
-<h2>组件 <span class="tag">components</span></h2>
-<div class="grid">
-  <a class="card" href="components/05_component_ecosystem.md">05_component_ecosystem.md<span>组件生态</span></a>
-  <a class="card" href="components/06_designer_guide.md">06_designer_guide.md<span>设计师指南</span></a>
-  <a class="card" href="components/13_component_schema.md">13_component_schema.md<span>组件 Schema</span></a>
-  <a class="card" href="components/15_designer_checklist.md">15_designer_checklist.md<span>设计检查清单</span></a>
-</div>
+  <h2 class="reveal"><span class="num">01</span>协议基础<span class="tag">protocol</span></h2>
+  <div class="grid reveal">
+    <a class="card" href="protocol/01_protocol_overview.md"><span class="fname">01_protocol_overview.md</span><span class="desc">协议总览</span></a>
+    <a class="card" href="protocol/02_ys_token.md"><span class="fname">02_ys_token.md</span><span class="desc">YS Token 结构</span></a>
+    <a class="card" href="protocol/03_pjd_document.md"><span class="fname">03_pjd_document.md</span><span class="desc">PJD 文档格式</span></a>
+    <a class="card" href="protocol/04_pjp_pack.md"><span class="fname">04_pjp_pack.md</span><span class="desc">PJP 组件包</span></a>
+  </div>
 
-<h2>数据结构与渲染 <span class="tag">schemas</span></h2>
-<div class="grid">
-  <a class="card" href="schemas/11_payload_schema.md">11_payload_schema.md<span>Payload Schema</span></a>
-  <a class="card" href="schemas/12_renderer_resolver.md">12_renderer_resolver.md<span>Resolver 与 Renderer</span></a>
-</div>
+  <h2 class="reveal"><span class="num">02</span>组件<span class="tag">components</span></h2>
+  <div class="grid reveal">
+    <a class="card" href="components/05_component_ecosystem.md"><span class="fname">05_component_ecosystem.md</span><span class="desc">组件生态</span></a>
+    <a class="card" href="components/06_designer_guide.md"><span class="fname">06_designer_guide.md</span><span class="desc">设计师指南</span></a>
+    <a class="card" href="components/13_component_schema.md"><span class="fname">13_component_schema.md</span><span class="desc">组件 Schema</span></a>
+    <a class="card" href="components/15_designer_checklist.md"><span class="fname">15_designer_checklist.md</span><span class="desc">设计检查清单</span></a>
+  </div>
 
-<h2>注册表与治理 <span class="tag">registry</span></h2>
-<div class="grid">
-  <a class="card" href="registry/07_registry_security.md">07_registry_security.md<span>Registry 与安全</span></a>
-  <a class="card" href="registry/14_governance_registry.md">14_governance_registry.md<span>生态治理</span></a>
-</div>
+  <h2 class="reveal"><span class="num">03</span>数据结构与渲染<span class="tag">schemas</span></h2>
+  <div class="grid reveal">
+    <a class="card" href="schemas/11_payload_schema.md"><span class="fname">11_payload_schema.md</span><span class="desc">Payload Schema</span></a>
+    <a class="card" href="schemas/12_renderer_resolver.md"><span class="fname">12_renderer_resolver.md</span><span class="desc">Resolver 与 Renderer</span></a>
+  </div>
 
-<h2>示例与本地化 <span class="tag">examples</span></h2>
-<div class="grid">
-  <a class="card" href="examples/08_examples.md">08_examples.md<span>示例</span></a>
-  <a class="card" href="examples/09_i18n_localization.md">09_i18n_localization.md<span>多语言</span></a>
-</div>
+  <h2 class="reveal"><span class="num">04</span>注册表与治理<span class="tag">registry</span></h2>
+  <div class="grid reveal">
+    <a class="card" href="registry/07_registry_security.md"><span class="fname">07_registry_security.md</span><span class="desc">Registry 与安全</span></a>
+    <a class="card" href="registry/14_governance_registry.md"><span class="fname">14_governance_registry.md</span><span class="desc">生态治理</span></a>
+  </div>
 
-<h2>参考 <span class="tag">reference</span></h2>
-<div class="grid">
-  <a class="card" href="reference/16_implementation_roadmap.md">16_implementation_roadmap.md<span>路线图</span></a>
-  <a class="card" href="reference/17_api_reference.md">17_api_reference.md<span>API 草案</span></a>
-  <a class="card" href="reference/18_testing_compatibility.md">18_testing_compatibility.md<span>测试兼容</span></a>
-</div>
+  <h2 class="reveal"><span class="num">05</span>示例与本地化<span class="tag">examples</span></h2>
+  <div class="grid reveal">
+    <a class="card" href="examples/08_examples.md"><span class="fname">08_examples.md</span><span class="desc">示例</span></a>
+    <a class="card" href="examples/09_i18n_localization.md"><span class="fname">09_i18n_localization.md</span><span class="desc">多语言</span></a>
+  </div>
 
-<h2>元信息 <span class="tag">meta</span></h2>
-<div class="grid">
-  <a class="card" href="meta/10_license_mit.md">10_license_mit.md<span>MIT 授权说明</span></a>
-  <a class="card" href="meta/19_glossary.md">19_glossary.md<span>术语表</span></a>
-  <a class="card" href="meta/20_faq.md">20_faq.md<span>FAQ</span></a>
-  <a class="card" href="meta/21_contribution_guide.md">21_contribution_guide.md<span>贡献指南</span></a>
-</div>
+  <h2 class="reveal"><span class="num">06</span>参考<span class="tag">reference</span></h2>
+  <div class="grid reveal">
+    <a class="card" href="reference/16_implementation_roadmap.md"><span class="fname">16_implementation_roadmap.md</span><span class="desc">路线图</span></a>
+    <a class="card" href="reference/17_api_reference.md"><span class="fname">17_api_reference.md</span><span class="desc">API 草案</span></a>
+    <a class="card" href="reference/18_testing_compatibility.md"><span class="fname">18_testing_compatibility.md</span><span class="desc">测试兼容</span></a>
+  </div>
 
-<footer>
-  Paoji v0.7.0 · MIT License · 中英双语 zh-CN / en-US<br/>
-  GitHub Pages 部署目录：<code>docs/</code>
-</footer>
+  <h2 class="reveal"><span class="num">07</span>元信息<span class="tag">meta</span></h2>
+  <div class="grid reveal">
+    <a class="card" href="meta/10_license_mit.md"><span class="fname">10_license_mit.md</span><span class="desc">MIT 授权说明</span></a>
+    <a class="card" href="meta/19_glossary.md"><span class="fname">19_glossary.md</span><span class="desc">术语表</span></a>
+    <a class="card" href="meta/20_faq.md"><span class="fname">20_faq.md</span><span class="desc">FAQ</span></a>
+    <a class="card" href="meta/21_contribution_guide.md"><span class="fname">21_contribution_guide.md</span><span class="desc">贡献指南</span></a>
+  </div>
+
+  <footer>
+    <span>Paoji v0.7.0 · MIT License · 中英双语 zh-CN / en-US</span>
+    <span>GitHub Pages 部署目录：<code>docs/</code></span>
+  </footer>
 </main>
+<script>
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('iconSun');
+  const THEMES = ['light', 'dark', 'auto'];
+  const THEME_ICONS = {
+    light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+    dark: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    auto: '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none"/>'
+  };
+  const THEME_LABEL = { light: '亮色 Light', dark: '暗色 Dark', auto: '自动 Auto' };
+  const mqDark = window.matchMedia('(prefers-color-scheme: dark)');
+  function applyTheme(pref){
+    const actual = pref === 'auto' ? (mqDark.matches ? 'dark' : 'light') : pref;
+    root.dataset.theme = actual;
+    themeIcon.innerHTML = THEME_ICONS[pref];
+    themeBtn.title = `主题：${THEME_LABEL[pref]}（点击切换）`;
+    try{ localStorage.setItem('paoji-theme', pref); }catch(e){}
+  }
+  let curPref = 'auto';
+  try{ curPref = localStorage.getItem('paoji-theme') || 'auto'; }catch(e){}
+  applyTheme(curPref);
+  themeBtn.onclick = () => { curPref = THEMES[(THEMES.indexOf(curPref) + 1) % THEMES.length]; applyTheme(curPref); };
+  mqDark.addEventListener('change', () => { if(curPref === 'auto') applyTheme('auto'); });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:0.1, rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
