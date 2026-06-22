@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Paoji Wiki — Designer &amp; Protocol Notes</title>
+<title>Paoji Wiki — Designer & Protocol Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
 <style>
   :root{
     --paper:#f3efe6;
@@ -53,9 +54,9 @@
   }
   [data-theme="dark"] body:before{mix-blend-mode:screen;opacity:.18}
 
-  .layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh;position:relative;z-index:2}
+  .layout{display:grid;grid-template-columns:300px 1fr;min-height:100vh;position:relative;z-index:2}
   .side{
-    position:sticky;top:0;height:100vh;padding:36px 28px;
+    position:sticky;top:0;height:100vh;padding:32px 24px;
     border-right:1px solid var(--line);
     background:var(--paper-2);
     overflow-y:auto;
@@ -63,77 +64,120 @@
   .brand{display:flex;align-items:center;gap:10px}
   .brand .logo{height:28px;width:auto;display:block;border-radius:6px}
   [data-theme="dark"] .brand .logo{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.95)}
-  .side .sub{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:32px}
-  .side a{
+  .home-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--mono);font-size:11px;font-weight:500;
+    color:var(--muted);text-decoration:none;
+    padding:6px 10px;border:1px solid var(--line);border-radius:14px;
+    transition:color .2s, border-color .2s, background .2s;
+    margin-top:10px;
+  }
+  .home-link:hover{color:var(--accent);border-color:var(--accent);background:color-mix(in srgb, var(--accent) 6%, transparent)}
+  .home-link svg{width:12px;height:12px}
+  .side .sub{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin:6px 0 20px}
+
+  .nav-group{margin-bottom:18px}
+  .nav-group .group-title{
+    font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.16em;
+    padding:8px 0 6px;border-bottom:1px solid var(--line);
+    margin-bottom:4px;
+  }
+  .side a.doc-link{
     display:flex;align-items:center;gap:10px;
     color:var(--muted);text-decoration:none;
-    padding:10px 0;border-bottom:1px solid var(--line);
-    font-size:14px;font-weight:500;
-    transition:color .2s ease, padding-left .2s ease;
-    position:relative;
+    padding:7px 8px;border-radius:8px;
+    font-size:13.5px;font-weight:500;
+    transition:color .2s ease, background .2s ease, padding-left .2s ease;
+    position:relative;line-height:1.4;
   }
-  .side a:before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:0;height:1px;background:var(--accent);transition:width .25s ease}
-  .side a:hover{color:var(--ink);padding-left:14px}
-  .side a:hover:before{width:8px}
-  .side a .num{font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:700;min-width:24px}
+  .side a.doc-link:before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:0;height:1px;background:var(--accent);transition:width .25s ease}
+  .side a.doc-link:hover{color:var(--ink);background:color-mix(in srgb, var(--ink) 4%, transparent);padding-left:14px}
+  .side a.doc-link:hover:before{width:6px}
+  .side a.doc-link.active{color:var(--accent);background:color-mix(in srgb, var(--accent) 10%, transparent);font-weight:600}
+  .side a.doc-link.active:before{width:6px}
+  .side a.doc-link .num{font-family:var(--mono);font-size:10px;color:var(--accent);font-weight:700;min-width:22px;opacity:.8}
+  .side a.doc-link.active .num{opacity:1}
 
-  .side .theme-row{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
-  .iconbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s ease, transform .2s ease}
+  .side .theme-row{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+  .iconbtn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s ease, transform .2s ease}
   .iconbtn:hover{background:var(--paper);transform:rotate(-8deg)}
-  .iconbtn svg{width:16px;height:16px}
+  .iconbtn svg{width:15px;height:15px}
+  .lang-toggle{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;border:1px solid var(--line-strong);background:transparent;padding:7px 12px;border-radius:18px;cursor:pointer;transition:color .2s, border-color .2s}
+  .lang-toggle:hover{color:var(--accent);border-color:var(--accent)}
 
-  .content{padding:56px 64px 90px;max-width:1080px}
-  .kicker{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:28px}
+  .content{padding:56px 64px 120px;max-width:980px;position:relative}
+  .kicker{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:20px}
   .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent)}
   .kicker .sep{width:24px;height:1px;background:var(--line-strong)}
+  .breadcrumb{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-bottom:8px}
+  .breadcrumb span{color:var(--accent)}
 
-  h1{font-family:var(--display);font-weight:340;font-size:clamp(44px,7vw,96px);line-height:.9;letter-spacing:-.045em;margin:0 0 28px;font-variation-settings:"opsz" 144, "SOFT" 50}
-  h1 em{font-style:italic;color:var(--accent);font-weight:300}
-  h2{font-family:var(--display);font-weight:380;font-size:clamp(30px,4vw,52px);letter-spacing:-.03em;line-height:1.02;margin:64px 0 18px;display:flex;align-items:baseline;gap:14px;font-variation-settings:"opsz" 96}
-  h2 .num{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700;letter-spacing:.1em}
-  h3{font-family:var(--display);font-weight:500;font-size:22px;margin:28px 0 10px;letter-spacing:-.02em}
-  p,li{color:var(--ink-soft);line-height:1.78;font-size:15.5px}
-  p{margin:0 0 14px}
-  ul{padding-left:20px}
-  li{margin-bottom:8px}
-  li::marker{color:var(--accent)}
+  /* ===== Markdown 渲染样式 ===== */
+  .md{animation:fadeIn .4s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .md h1{font-family:var(--display);font-weight:340;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-.035em;margin:0 0 24px;font-variation-settings:"opsz" 144, "SOFT" 50}
+  .md h1 em{font-style:italic;color:var(--accent);font-weight:300}
+  .md h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-.025em;line-height:1.1;margin:48px 0 16px;font-variation-settings:"opsz" 96;border-bottom:1px solid var(--line);padding-bottom:10px}
+  .md h3{font-family:var(--display);font-weight:500;font-size:20px;margin:28px 0 10px;letter-spacing:-.015em}
+  .md h4{font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:24px 0 8px}
+  .md p,.md li{color:var(--ink-soft);line-height:1.78;font-size:15px}
+  .md p{margin:0 0 14px}
+  .md ul,.md ol{padding-left:22px;margin:0 0 16px}
+  .md li{margin-bottom:6px}
+  .md li::marker{color:var(--accent)}
+  .md a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb, var(--accent) 30%, transparent);transition:border-color .2s}
+  .md a:hover{border-color:var(--accent)}
+  .md strong{color:var(--ink);font-weight:600}
+  .md blockquote{
+    margin:0 0 16px;padding:14px 18px;
+    border-left:3px solid var(--accent);
+    background:color-mix(in srgb, var(--accent) 6%, var(--paper));
+    border-radius:0 12px 12px 0;
+    color:var(--ink-soft);font-style:italic;
+  }
+  .md blockquote p{margin:0}
+  .md hr{border:none;border-top:1px solid var(--line);margin:36px 0}
 
-  .hero{padding:30px 32px;border:1px solid var(--line-strong);border-radius:20px;background:linear-gradient(180deg, var(--paper-2), var(--paper));margin-bottom:30px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-  .hero:after{content:"";position:absolute;inset:auto -20% -40% 30%;height:160px;background:radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%);pointer-events:none}
-  .token{font-family:var(--mono);font-weight:500;font-size:clamp(16px,2vw,20px);line-height:1.5;color:var(--ink);overflow-wrap:anywhere;padding:14px 16px;border-radius:12px;background:color-mix(in srgb, var(--ink) 5%, var(--paper));border:1px solid var(--line);position:relative;margin-bottom:14px}
-  [data-theme="dark"] .token{background:color-mix(in srgb, var(--ink) 8%, transparent)}
-  .token .bracket{color:var(--accent);font-weight:700}
-  .hero p{position:relative;margin:0}
+  .md pre{
+    padding:18px 20px;border-radius:14px;
+    background:color-mix(in srgb, var(--ink) 5%, var(--paper));
+    border:1px solid var(--line);overflow:auto;
+    font-family:var(--mono);font-weight:500;font-size:13px;line-height:1.65;
+    color:var(--ink-soft);margin:0 0 16px;
+  }
+  [data-theme="dark"] .md pre{background:color-mix(in srgb, var(--ink) 6%, transparent)}
+  .md pre code{color:inherit;background:none;padding:0;font-size:inherit;font-weight:inherit}
+  .md code{font-family:var(--mono);font-size:.88em;color:var(--accent);font-weight:500;background:color-mix(in srgb, var(--accent) 8%, transparent);padding:2px 6px;border-radius:4px}
+  [data-theme="dark"] .md code{background:color-mix(in srgb, var(--accent) 14%, transparent)}
 
-  pre{padding:18px 20px;border-radius:14px;background:color-mix(in srgb, var(--ink) 5%, var(--paper));border:1px solid var(--line);overflow:auto;font-family:var(--mono);font-weight:500;font-size:13px;line-height:1.65;color:var(--ink-soft);margin:0 0 16px}
-  [data-theme="dark"] pre{background:color-mix(in srgb, var(--ink) 6%, transparent)}
-  pre .k{color:var(--accent);font-weight:600}
-  pre .c{color:var(--muted)}
-  code{font-family:var(--mono);font-size:.92em;color:var(--accent);font-weight:500}
+  .md table{width:100%;border-collapse:collapse;background:var(--paper-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 16px;font-size:13.5px}
+  .md th,.md td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .md th{color:var(--ink);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:var(--paper)}
+  .md td{color:var(--ink-soft)}
+  .md tr:last-child td{border-bottom:none}
 
-  table{width:100%;border-collapse:collapse;background:var(--paper-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:0 0 16px;font-size:14px}
-  th,td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-  th{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:var(--paper)}
-  td{color:var(--ink-soft)}
-  tr:last-child td{border-bottom:none}
+  .md img{max-width:100%;border-radius:12px;border:1px solid var(--line)}
 
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:0 0 16px}
-  .card{border:none;padding:24px 22px;background:var(--paper);transition:background .25s ease}
-  .card:hover{background:var(--paper-2)}
-  .card b{display:block;margin-bottom:8px;font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.01em}
-  .card b .mono{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--muted);display:block;margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
-  .card p{margin:0;color:var(--muted);line-height:1.65;font-size:14px}
+  /* loading & error */
+  .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;color:var(--muted);font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+  .loading .pulse{width:10px;height:10px;border-radius:50%;background:var(--accent);margin-bottom:14px;animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+  .error-box{padding:24px;border:1px solid var(--accent);border-radius:14px;background:color-mix(in srgb, var(--accent) 8%, var(--paper));color:var(--ink);font-family:var(--mono);font-size:13px}
 
-  .call{border-left:3px solid var(--accent);padding:16px 20px;background:color-mix(in srgb, var(--accent) 8%, var(--paper));border-radius:0 14px 14px 0;color:var(--ink);font-family:var(--display);font-style:italic;font-size:18px;line-height:1.5;letter-spacing:-.01em;margin:0 0 16px}
-
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
+  /* 文档底部导航 */
+  .doc-nav{display:flex;justify-content:space-between;gap:16px;margin-top:64px;padding-top:24px;border-top:1px solid var(--line)}
+  .doc-nav a{display:flex;flex-direction:column;gap:4px;padding:14px 18px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--muted);font-size:13px;transition:border-color .2s, color .2s, background .2s;max-width:48%}
+  .doc-nav a:hover{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb, var(--accent) 5%, transparent)}
+  .doc-nav a .label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+  .doc-nav a .title{font-family:var(--display);font-size:16px;font-weight:500;color:var(--ink)}
+  .doc-nav a:hover .title{color:var(--accent)}
+  .doc-nav a.next{margin-left:auto;text-align:right}
 
   @media(max-width:860px){
     .layout{grid-template-columns:1fr}
-    .side{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line)}
-    .content{padding:36px 24px 60px}
-    .grid{grid-template-columns:1fr}
+    .side{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);max-height:50vh}
+    .content{padding:32px 22px 80px}
   }
 </style>
 </head>
@@ -141,118 +185,71 @@
 <div class="layout">
   <aside class="side">
     <div class="brand"><img class="logo" src="assets/brand/paoji-logo.png" alt="Paoji"/></div>
+    <a class="home-link" href="paoji_landing.html" title="回到主页">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>主页</span>
+    </a>
     <div class="sub">Wiki · v0.7.0</div>
-    <a href="#idea"><span class="num">01</span>核心概念</a>
-    <a href="#token"><span class="num">02</span>YS Token</a>
-    <a href="#objects"><span class="num">03</span>PJD / PJP / PJR</a>
-    <a href="#components"><span class="num">04</span>组件生态</a>
-    <a href="#designer"><span class="num">05</span>设计师规则</a>
-    <a href="#fallback"><span class="num">06</span>降级策略</a>
-    <a href="#i18n"><span class="num">07</span>多语言与授权</a>
-    <a href="#complete-docs"><span class="num">08</span>补全文档索引</a>
+    <nav id="docNav"></nav>
     <div class="theme-row">
       <button class="iconbtn" id="themeBtn" title="切换主题 / Toggle theme" aria-label="theme">
         <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
+      <button class="lang-toggle" id="langBtn" title="切换语言">中文</button>
     </div>
   </aside>
 
   <main class="content">
-    <section id="idea" class="reveal">
-      <div class="kicker"><span class="dot"></span><span>Wiki · Designer & Protocol Notes</span></div>
-      <h1>Open emoji <em>object protocol</em>.</h1>
-      <div class="hero">
-        <div class="token"><span class="bracket">⟦</span>YS1🐱💜🥺😿🫧🌙🪽💧~AgEBAf8A.gGs<span class="bracket">⟧</span></div>
-        <p>Paoji 不是更多 emoji，而是一套允许表情无限扩展、被验证、被渲染、被降级显示的对象协议。</p>
-      </div>
-      <div class="call">一句话：官方组件保证最低可见性，用户组件保证无限创造。</div>
-    </section>
-
-    <section id="token" class="reveal">
-      <h2><span class="num">02</span>YS Token</h2>
-      <pre><span class="k">⟦</span>YS1&lt;visualHint?&gt;~&lt;payload&gt;.&lt;crc&gt;<span class="k">⟧</span></pre>
-      <table>
-        <tr><th>字段</th><th>含义</th></tr>
-        <tr><td><code>YS</code></td><td>协议族，大小写敏感。</td></tr>
-        <tr><td><code>visualHint</code></td><td>视觉提示区，不是权威数据。</td></tr>
-        <tr><td><code>payload</code></td><td>机器入口数据，可为 InlineCore / PackRef / DocRef。</td></tr>
-        <tr><td><code>crc</code></td><td>校验，防止误替换和篡改。</td></tr>
-      </table>
-    </section>
-
-    <section id="objects" class="reveal">
-      <h2><span class="num">03</span>PJD / PJP / PJR</h2>
-      <div class="grid">
-        <div class="card"><b>PJD<span class="mono">document</span></b><p>表情明文文档，描述节点、组件、语义、能力需求和 fallback。</p></div>
-        <div class="card"><b>PJP<span class="mono">pack</span></b><p>资源包，承载组件、材质、动画、角色模板和预览。</p></div>
-        <div class="card"><b>PJR<span class="mono">registry</span></b><p>注册表，负责命名空间、版本、hash、信任等级和发现。</p></div>
-        <div class="card"><b>Renderer<span class="mono">runtime</span></b><p>负责解析、加载、验证、沙箱渲染和降级显示。</p></div>
-      </div>
-    </section>
-
-    <section id="components" class="reveal">
-      <h2><span class="num">04</span>组件生态</h2>
-      <p>官方组件也会大量增长，所以官方组件和用户组件必须使用同一套 PJP 格式。区别不是格式，而是 <code>trust level</code>。</p>
-      <pre>paoji.core.eye.sleepy
-paoji.std.deco.bubble
-paoji.official.cloud.deco.soft-bubble
-user.hiyunshu.cloudglass.eye.sleepy-crystal
-creator.mochi.plushcat.mouth.pout</pre>
-    </section>
-
-    <section id="designer" class="reveal">
-      <h2><span class="num">05</span>设计师规则</h2>
-      <ul>
-        <li>使用 <code>1024×1024</code> 标准画布。</li>
-        <li>组件必须声明类型：<code>base</code> / <code>eye</code> / <code>mouth</code> / <code>deco</code> / <code>material</code> / <code>motion</code>。</li>
-        <li>基底组件必须提供锚点。</li>
-        <li>复杂组件必须有官方 fallback。</li>
-        <li>不要依赖脚本、外部图片、远程字体或不可控滤镜。</li>
-      </ul>
-    </section>
-
-    <section id="fallback" class="reveal">
-      <h2><span class="num">06</span>降级策略</h2>
-      <pre>完整 PJP 渲染
-  <span class="c">↓</span>
-基础 PJD 渲染
-  <span class="c">↓</span>
-Paoji Core fallback
-  <span class="c">↓</span>
-Visual Hint
-  <span class="c">↓</span>
-alt 文本</pre>
-      <p>这是 Paoji 替代 emoji 的生命线：不能完整显示，也必须尽量有东西可见。</p>
-    </section>
-
-    <section id="i18n" class="reveal">
-      <h2><span class="num">07</span>多语言与授权</h2>
-      <p>Paoji 的文档与生态支持中英双语（<code>zh-CN</code> / <code>en-US</code>）。协议字段、Token、namespace、hash、version 不本地化；UI 文案、组件显示名、alt 文本、设计文档可以本地化。</p>
-      <pre>支持语言：zh-CN, en-US
-协议授权：MIT
-组件包授权：由各 PJP Pack 自行声明</pre>
-      <p>协议本体采用宽松 MIT 授权；用户组件包、商业组件包或第三方视觉资产可以声明独立 license。</p>
-    </section>
-
-    <section id="complete-docs" class="reveal">
-      <h2><span class="num">08</span>完整文档索引</h2>
-      <p>以下文档覆盖了协议设计、组件开发、渲染、安全、治理等完整环节，让设计师知道如何设计组件，也让开发者知道如何解析、验证、渲染和降级。</p>
-      <pre>schemas/11_payload_schema.md
-schemas/12_renderer_resolver.md
-components/13_component_schema.md
-registry/14_governance_registry.md
-components/15_designer_checklist.md
-reference/16_implementation_roadmap.md
-reference/17_api_reference.md
-reference/18_testing_compatibility.md
-meta/19_glossary.md
-meta/20_faq.md
-meta/21_contribution_guide.md</pre>
-      <p>这些文档让设计师知道如何设计组件，也让开发者知道如何解析、验证、渲染和降级。</p>
-    </section>
+    <div id="docBody">
+      <div class="loading"><div class="pulse"></div>Loading document…</div>
+    </div>
   </main>
 </div>
+
 <script>
+  // ===== 文档树配置 =====
+  const DOC_TREE = [
+    { group: "Protocol", items: [
+      { num: "01", path: "protocol/01_protocol_overview.md", title: "协议总览" },
+      { num: "02", path: "protocol/02_ys_token.md", title: "YS Token" },
+      { num: "03", path: "protocol/03_pjd_document.md", title: "PJD 文档" },
+      { num: "04", path: "protocol/04_pjp_pack.md", title: "PJP 资源包" },
+    ]},
+    { group: "Components", items: [
+      { num: "05", path: "components/05_component_ecosystem.md", title: "组件生态" },
+      { num: "06", path: "components/06_designer_guide.md", title: "设计师指南" },
+      { num: "13", path: "components/13_component_schema.md", title: "组件 Schema" },
+      { num: "15", path: "components/15_designer_checklist.md", title: "设计师清单" },
+    ]},
+    { group: "Schemas", items: [
+      { num: "11", path: "schemas/11_payload_schema.md", title: "Payload Schema" },
+      { num: "12", path: "schemas/12_renderer_resolver.md", title: "渲染器与解析器" },
+    ]},
+    { group: "Registry", items: [
+      { num: "07", path: "registry/07_registry_security.md", title: "注册表与安全" },
+      { num: "14", path: "registry/14_governance_registry.md", title: "治理与注册表" },
+    ]},
+    { group: "Examples", items: [
+      { num: "08", path: "examples/08_examples.md", title: "示例" },
+      { num: "09", path: "examples/09_i18n_localization.md", title: "i18n 与本地化" },
+    ]},
+    { group: "Reference", items: [
+      { num: "16", path: "reference/16_implementation_roadmap.md", title: "实现路线图" },
+      { num: "17", path: "reference/17_api_reference.md", title: "API 参考" },
+      { num: "18", path: "reference/18_testing_compatibility.md", title: "测试与兼容性" },
+    ]},
+    { group: "Meta", items: [
+      { num: "10", path: "meta/10_license_mit.md", title: "MIT 授权" },
+      { num: "19", path: "meta/19_glossary.md", title: "术语表" },
+      { num: "20", path: "meta/20_faq.md", title: "FAQ" },
+      { num: "21", path: "meta/21_contribution_guide.md", title: "贡献指南" },
+    ]},
+  ];
+
+  // 扁平化用于上一页/下一页
+  const FLAT = DOC_TREE.flatMap(g => g.items.map(i => ({...i, group: g.group})));
+
+  // ===== 主题系统 =====
   const root = document.documentElement;
   const themeBtn = document.getElementById('themeBtn');
   const themeIcon = document.getElementById('iconSun');
@@ -277,12 +274,123 @@ meta/21_contribution_guide.md</pre>
   themeBtn.onclick = () => { curPref = THEMES[(THEMES.indexOf(curPref) + 1) % THEMES.length]; applyTheme(curPref); };
   mqDark.addEventListener('change', () => { if(curPref === 'auto') applyTheme('auto'); });
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(en => {
-      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+  // ===== 语言切换 =====
+  let curLang = 'zh';
+  try{ curLang = localStorage.getItem('paoji-wiki-lang') || 'zh'; }catch(e){}
+  const langBtn = document.getElementById('langBtn');
+  function updateLangBtn(){ langBtn.textContent = curLang === 'zh' ? 'English' : '中文'; }
+  updateLangBtn();
+  langBtn.onclick = () => {
+    curLang = curLang === 'zh' ? 'en' : 'zh';
+    try{ localStorage.setItem('paoji-wiki-lang', curLang); }catch(e){}
+    updateLangBtn();
+    renderNav();
+    loadCurrentDoc();
+  };
+
+  // ===== 渲染侧边栏 =====
+  function renderNav(){
+    const nav = document.getElementById('docNav');
+    nav.innerHTML = '';
+    DOC_TREE.forEach(group => {
+      const g = document.createElement('div');
+      g.className = 'nav-group';
+      g.innerHTML = `<div class="group-title">${group.group}</div>`;
+      group.items.forEach(item => {
+        const a = document.createElement('a');
+        a.className = 'doc-link';
+        a.href = '#' + item.path;
+        a.dataset.path = item.path;
+        a.innerHTML = `<span class="num">${item.num}</span><span>${item.title}</span>`;
+        a.onclick = (e) => {
+          e.preventDefault();
+          location.hash = item.path;
+        };
+        g.appendChild(a);
+      });
+      nav.appendChild(g);
     });
-  }, {threshold:0.08, rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    highlightCurrent();
+  }
+
+  function highlightCurrent(){
+    const hash = location.hash.slice(1) || FLAT[0].path;
+    document.querySelectorAll('.doc-link').forEach(a => {
+      a.classList.toggle('active', a.dataset.path === hash);
+    });
+  }
+
+  // ===== 加载并渲染文档 =====
+  function resolvePath(hash){
+    // hash 形如 "protocol/01_protocol_overview.md"
+    if(curLang === 'en') return 'en/' + hash;
+    return hash;
+  }
+
+  function findDocIndex(hash){
+    const idx = FLAT.findIndex(i => i.path === hash);
+    return idx >= 0 ? idx : 0;
+  }
+
+  async function loadCurrentDoc(){
+    const hash = location.hash.slice(1) || FLAT[0].path;
+    const idx = findDocIndex(hash);
+    const doc = FLAT[idx];
+    const body = document.getElementById('docBody');
+    body.innerHTML = '<div class="loading"><div class="pulse"></div>Loading document…</div>';
+
+    const filePath = resolvePath(hash);
+    try{
+      const res = await fetch(filePath);
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      const html = marked.parse(text, { breaks: false, gfm: true });
+
+      // 构建面包屑
+      const breadcrumb = `<div class="breadcrumb">${doc.group} <span>/</span> ${doc.num} <span>/</span> ${doc.title}</div>`;
+      const kicker = `<div class="kicker"><span class="dot"></span><span>Wiki · ${curLang === 'zh' ? '中文' : 'English'}</span><span class="sep"></span><span>${doc.path}</span></div>`;
+
+      // 上一页/下一页
+      const prev = idx > 0 ? FLAT[idx - 1] : null;
+      const next = idx < FLAT.length - 1 ? FLAT[idx + 1] : null;
+      let navHtml = '<div class="doc-nav">';
+      if(prev){
+        navHtml += `<a class="prev" href="#${prev.path}"><span class="label">← Prev</span><span class="title">${prev.title}</span></a>`;
+      } else {
+        navHtml += '<span></span>';
+      }
+      if(next){
+        navHtml += `<a class="next" href="#${next.path}"><span class="label">Next →</span><span class="title">${next.title}</span></a>`;
+      }
+      navHtml += '</div>';
+
+      body.innerHTML = kicker + breadcrumb + `<div class="md">${html}</div>` + navHtml;
+
+      // 绑定上下页点击
+      body.querySelectorAll('.doc-nav a').forEach(a => {
+        a.onclick = (e) => {
+          e.preventDefault();
+          location.hash = a.getAttribute('href').slice(1);
+        };
+      });
+
+      // 滚动到顶部
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      highlightCurrent();
+    }catch(err){
+      body.innerHTML = `<div class="error-box">⚠️ Failed to load: ${filePath}<br><br>${err.message}<br><br>如果通过 file:// 协议打开，请使用本地 HTTP 服务器：<br><code>python3 -m http.server 8000</code></div>`;
+    }
+  }
+
+  // ===== 路由 =====
+  window.addEventListener('hashchange', () => {
+    loadCurrentDoc();
+  });
+
+  // 初始化
+  marked.setOptions({ breaks: false, gfm: true });
+  renderNav();
+  loadCurrentDoc();
 </script>
 </body>
 </html>
